@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiaiogueAniVC" customModule="MayBe" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mO-tl-T1y">
+                    <rect key="frame" x="20" y="44" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="cTv-St-2xc"/>
+                        <constraint firstAttribute="width" constant="44" id="nPQ-Mb-jnU"/>
+                    </constraints>
+                    <state key="normal" image="关闭icon"/>
+                    <connections>
+                        <action selector="dismissAC:" destination="-1" eventType="touchUpInside" id="hEE-R6-3mr"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juU-cK-axw">
+                    <rect key="frame" x="171" y="764" width="72" height="64"/>
+                    <state key="normal" image="编组 7备份"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CC2-Mw-UUB">
+                    <rect key="frame" x="294.5" y="780" width="32" height="32"/>
+                    <state key="normal" image="技能列表 icon"/>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yi-PK-0P1">
+                    <rect key="frame" x="87.5" y="780" width="32" height="32"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="32" id="smK-34-iof"/>
+                        <constraint firstAttribute="height" constant="32" id="xYZ-En-Vrg"/>
+                    </constraints>
+                    <state key="normal" image="对话记录 icon"/>
+                    <connections>
+                        <action selector="pushDiaioList:" destination="-1" eventType="touchUpInside" id="tu9-FH-E4M"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="juU-cK-axw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Kan-iV-Tal"/>
+                <constraint firstItem="0mO-tl-T1y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="PMd-vV-AKI"/>
+                <constraint firstItem="CC2-Mw-UUB" firstAttribute="centerY" secondItem="juU-cK-axw" secondAttribute="centerY" id="Uf0-q2-dDE"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="juU-cK-axw" secondAttribute="bottom" constant="34" id="WgA-1w-Gkk"/>
+                <constraint firstItem="0mO-tl-T1y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="eJN-Gf-9Vm"/>
+                <constraint firstItem="2Yi-PK-0P1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="0.5" id="gv3-gv-b3F"/>
+                <constraint firstItem="CC2-Mw-UUB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.5" id="wH3-1g-4BI"/>
+                <constraint firstItem="2Yi-PK-0P1" firstAttribute="centerY" secondItem="juU-cK-axw" secondAttribute="centerY" id="yqj-ct-eoh"/>
+            </constraints>
+            <point key="canvasLocation" x="88" y="64"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="关闭icon" width="28" height="28"/>
+        <image name="对话记录 icon" width="32" height="32"/>
+        <image name="技能列表 icon" width="32" height="32"/>
+        <image name="编组 7备份" width="72" height="64"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

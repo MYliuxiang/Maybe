@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-SemiBold.ttf">
+            <string>Gilroy-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="121" id="KGk-i7-Jjw" customClass="DetailLCell" customModule="MayBe" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="395" height="121"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="395" height="121"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6gS-OO-ib0">
+                        <rect key="frame" x="24" y="10" width="347" height="111"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Say where you come from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ewk-i6-Rlz">
+                                <rect key="frame" x="20" y="47" width="268.5" height="17"/>
+                                <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy-SemiBold" pointSize="17"/>
+                                <color key="textColor" red="0.019607843137254902" green="0.090196078431372548" blue="0.14117647058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="编组 7" translatesAutoresizingMaskIntoConstraints="NO" id="Cso-oG-UpC">
+                                <rect key="frame" x="308.5" y="50" width="18.5" height="11.5"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="18.5" id="EOn-Zz-30o"/>
+                                    <constraint firstAttribute="height" constant="11.5" id="aCk-kT-Vbd"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Cso-oG-UpC" firstAttribute="leading" secondItem="ewk-i6-Rlz" secondAttribute="trailing" constant="20" id="0C6-ei-3Fd"/>
+                            <constraint firstItem="ewk-i6-Rlz" firstAttribute="leading" secondItem="6gS-OO-ib0" secondAttribute="leading" constant="20" id="FxP-UE-buA"/>
+                            <constraint firstItem="Cso-oG-UpC" firstAttribute="centerY" secondItem="6gS-OO-ib0" secondAttribute="centerY" id="Gw8-vO-HdT"/>
+                            <constraint firstAttribute="trailing" secondItem="Cso-oG-UpC" secondAttribute="trailing" constant="20" id="a9V-fH-71r"/>
+                            <constraint firstItem="ewk-i6-Rlz" firstAttribute="centerY" secondItem="6gS-OO-ib0" secondAttribute="centerY" id="hc7-jr-yfF"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="6gS-OO-ib0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="24" id="eD0-b1-fqi"/>
+                    <constraint firstAttribute="trailing" secondItem="6gS-OO-ib0" secondAttribute="trailing" constant="24" id="eP5-3l-6kY"/>
+                    <constraint firstAttribute="bottom" secondItem="6gS-OO-ib0" secondAttribute="bottom" id="mUa-Wr-Rff"/>
+                    <constraint firstItem="6gS-OO-ib0" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="yew-bU-a5m"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="bgView" destination="6gS-OO-ib0" id="fnJ-4R-ZHj"/>
+                <outlet property="countI" destination="Cso-oG-UpC" id="qx4-lZ-yXw"/>
+                <outlet property="nameL" destination="ewk-i6-Rlz" id="q7F-2b-sgj"/>
+            </connections>
+            <point key="canvasLocation" x="77.536231884057983" y="143.63839285714286"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="编组 7" width="18.5" height="11.5"/>
+    </resources>
+</document>

@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+        <array key="Gilroy-Medium.ttf">
+            <string>Gilroy-Medium</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DetailLVC" customModule="MayBe" customModuleProvider="target">
+            <connections>
+                <outlet property="headerCoverI" destination="NyJ-Nl-FHn" id="RGk-qK-eEr"/>
+                <outlet property="headerTitleL" destination="vQT-xI-YfK" id="5iA-y2-vvV"/>
+                <outlet property="headerView" destination="KIK-eW-yGG" id="0aH-Yf-xuH"/>
+                <outlet property="heightC" destination="JlU-hH-V6g" id="25e-hQ-tZp"/>
+                <outlet property="tableView" destination="puo-NY-xmP" id="4H3-sV-lNz"/>
+                <outlet property="titleL" destination="UWQ-O0-Bvz" id="ITS-lQ-vQt"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="puo-NY-xmP">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="NN7-NV-XlT"/>
+                        <outlet property="delegate" destination="-1" id="3mx-FL-5jQ"/>
+                    </connections>
+                </tableView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rwT-sX-Xzc">
+                    <rect key="frame" x="20" y="44" width="44" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="44" id="iYi-nd-glg"/>
+                        <constraint firstAttribute="height" constant="44" id="tDz-3s-h06"/>
+                    </constraints>
+                    <state key="normal" image="返回icon"/>
+                    <connections>
+                        <action selector="backAC:" destination="-1" eventType="touchUpInside" id="SGQ-u7-V88"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Where you come from" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UWQ-O0-Bvz">
+                    <rect key="frame" x="121" y="57.5" width="172.5" height="17.5"/>
+                    <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy-Bold" pointSize="17"/>
+                    <color key="textColor" red="0.019607843137254902" green="0.090196078431372548" blue="0.14117647058823529" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w09-Jm-6hp">
+                    <rect key="frame" x="346" y="44" width="44" height="44"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="Zux-cL-5NP"/>
+                        <constraint firstAttribute="width" constant="44" id="p1g-dk-8dQ"/>
+                    </constraints>
+                    <state key="normal" image="课件icon"/>
+                    <connections>
+                        <action selector="coureseAC:" destination="-1" eventType="touchUpInside" id="Vzg-Zc-K86"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="UWQ-O0-Bvz" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="6lw-NT-O3W"/>
+                <constraint firstItem="rwT-sX-Xzc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="NwS-bH-jWp"/>
+                <constraint firstItem="rwT-sX-Xzc" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="PZz-7e-R5d"/>
+                <constraint firstAttribute="bottom" secondItem="puo-NY-xmP" secondAttribute="bottom" id="Stw-kg-Omk"/>
+                <constraint firstItem="puo-NY-xmP" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Wkt-ui-Br8"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="puo-NY-xmP" secondAttribute="trailing" id="dA2-qp-gXb"/>
+                <constraint firstItem="w09-Jm-6hp" firstAttribute="centerY" secondItem="rwT-sX-Xzc" secondAttribute="centerY" id="dqy-kS-WyJ"/>
+                <constraint firstItem="UWQ-O0-Bvz" firstAttribute="centerY" secondItem="rwT-sX-Xzc" secondAttribute="centerY" id="f3k-ET-8Uv"/>
+                <constraint firstItem="rwT-sX-Xzc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="qkm-Fa-NGX"/>
+                <constraint firstItem="puo-NY-xmP" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="uc9-f1-abh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="w09-Jm-6hp" secondAttribute="trailing" constant="24" id="vPa-Zv-UFz"/>
+            </constraints>
+            <point key="canvasLocation" x="131.8840579710145" y="118.52678571428571"/>
+        </view>
+        <view contentMode="scaleToFill" id="KIK-eW-yGG">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="343"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Learn to say where yo fpiefip Learn to say where yo fpiefip Learn to say where yo fpiefip " textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vQT-xI-YfK">
+                    <rect key="frame" x="48" y="10" width="318" height="51"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy-Medium" pointSize="17"/>
+                    <color key="textColor" red="0.074509803921568626" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NyJ-Nl-FHn">
+                    <rect key="frame" x="24" y="93" width="366" height="200"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="200" id="JlU-hH-V6g"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Aim-wP-LpD">
+                    <rect key="frame" x="157" y="143" width="100" height="100"/>
+                    <state key="normal" image="播放icon"/>
+                    <connections>
+                        <action selector="palyerAC:" destination="-1" eventType="touchUpInside" id="XRp-EM-y8i"/>
+                    </connections>
+                </button>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="jhS-Sh-dtI"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="Aim-wP-LpD" firstAttribute="centerY" secondItem="NyJ-Nl-FHn" secondAttribute="centerY" id="DIt-FP-uS5"/>
+                <constraint firstItem="vQT-xI-YfK" firstAttribute="top" secondItem="KIK-eW-yGG" secondAttribute="top" constant="10" id="E6q-JD-Hd5"/>
+                <constraint firstItem="NyJ-Nl-FHn" firstAttribute="leading" secondItem="jhS-Sh-dtI" secondAttribute="leading" constant="24" id="IJV-Js-gyT"/>
+                <constraint firstItem="Aim-wP-LpD" firstAttribute="centerX" secondItem="NyJ-Nl-FHn" secondAttribute="centerX" id="NL6-n4-88i"/>
+                <constraint firstItem="NyJ-Nl-FHn" firstAttribute="top" secondItem="vQT-xI-YfK" secondAttribute="bottom" constant="32" id="Q4K-YR-Why"/>
+                <constraint firstItem="vQT-xI-YfK" firstAttribute="leading" secondItem="KIK-eW-yGG" secondAttribute="leading" constant="48" id="TNN-ur-xU6"/>
+                <constraint firstAttribute="trailing" secondItem="vQT-xI-YfK" secondAttribute="trailing" constant="48" id="a7E-jr-KCE"/>
+                <constraint firstItem="vQT-xI-YfK" firstAttribute="centerX" secondItem="KIK-eW-yGG" secondAttribute="centerX" id="rDb-oE-Iq0"/>
+                <constraint firstItem="jhS-Sh-dtI" firstAttribute="trailing" secondItem="NyJ-Nl-FHn" secondAttribute="trailing" constant="24" id="znZ-yA-yXW"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="895.6521739130435" y="296.31696428571428"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="播放icon" width="100" height="100"/>
+        <image name="课件icon" width="28" height="28"/>
+        <image name="返回icon" width="28" height="28"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

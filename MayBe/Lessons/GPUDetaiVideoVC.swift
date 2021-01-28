@@ -18,7 +18,6 @@ class GPUDetaiVideoVC: BaseViewController {
     var player = AVPlayer()
   
     @IBOutlet weak var gpuImgView: GPUImageView!
-    
     @IBOutlet weak var backImgV: UIImageView!
     
     
@@ -27,7 +26,6 @@ class GPUDetaiVideoVC: BaseViewController {
         carV.isHidden = true
         return carV
     }()
-    
     
     lazy var videoPreImg:UIImageView = {
         let img = UIImageView()
@@ -150,7 +148,6 @@ class GPUDetaiVideoVC: BaseViewController {
                 self.dataList = models as? [GPUModel]
                 let model = self.dataList?.first
                 self.playModel(model: model!)
-//              self.videoPlayer.playerManger?.play()
             }
         }
         

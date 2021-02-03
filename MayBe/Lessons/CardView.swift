@@ -115,10 +115,13 @@ class CardView: UIView {
         chinesQL.snp.makeConstraints { make in
             make.top.equalToSuperview().offset(16);
             make.right.left.equalToSuperview().inset(20);
+            make.height.greaterThanOrEqualTo(28)
         }
         englishQL.snp.makeConstraints { make in
             make.top.equalTo(self.chinesQL.snp.bottom).offset(4);
             make.right.left.equalToSuperview().inset(20);
+            make.height.greaterThanOrEqualTo(24)
+
         }
         
         lineView.snp.makeConstraints { make in
@@ -145,9 +148,7 @@ class CardView: UIView {
             make.centerX.equalToSuperview()
             make.centerY.equalTo(self.snp.bottom)
         }
-        
-        
-        
+                
     }
     
     func setupUI() {
@@ -160,7 +161,6 @@ class CardView: UIView {
         addSubview(answerResultI)
         
         remakeConstranint()
-        
         cycleAniV.startAnimation()
         answerL.numberOfLines = 0
         answerL.preferredMaxLayoutWidth = self.width - 40;
@@ -171,42 +171,55 @@ class CardView: UIView {
             
     }
     
-    func cofigwithBox(box:ChatBox, totalTime:Double){
+    func cofigwithBox(query:Query?, totalTime:Double){
         
-        guard let zh = box.zh, zh.count != 0 else {
-            hidenSelf()
+        guard let squery = query, squery.sub?.count != 0 else {
+//            hidenSelf()
             return
         }
                 
-        self.englishQL.text = box.en
+        self.englishQL.text = squery.sub
+        let strs = squery.top?.value?.split(separator: " ").map{"\($0)"} ?? []
+        chinesQL.configAnimation(subtitles: strs,delay: 0.0, totalTime: totalTime)
+        let begin = squery.pos ?? 0.0
         
-        let strs = box.zh?.split(separator: " ").map{"\($0)"} ?? []
-        chinesQL.configAnimation(subtitles: strs, totalTime: totalTime)
 
-//        chinesQL.text = box.zh
+        LXAsync.delay(begin) {[weak self] in
+            self?.startAnimation()
+//            let len = squery.len ?? 0.0
+//            LXAsync.delay(len) {[weak self] in
+//                self?.startAnimation()
+//            }
+        }
+    
                 
     }
     
     func startAnimation(){
+        
+
+        if self.isHidden == false {
+            return
+        }
         self.answerStr = ""
         self.clipsToBounds = true
         self.setNeedsUpdateConstraints()
+        remakeConstranint()
+
         self.snp.remakeConstraints { (make) in
             make.bottom.equalTo(self.englishQL.snp.bottom).offset(17)
             make.top.equalTo(self.superview!.snp.centerY)
             make.left.right.equalToSuperview().inset(24)
         }
         self.superview?.layoutIfNeeded()
+
         self.lineView.isHidden = true
         self.animationI.isHidden = true
         answerResultI.isHidden = true
+        self.isHidden = false
 
 
-        UIView.animate(withDuration: 0.35) {
-            self.isHidden = false
-        } completion: { (comple) in
-        }
-        
+      
     }
     
     func hidenSelf(){
@@ -222,6 +235,7 @@ class CardView: UIView {
         self.answerStr = ""
         self.setNeedsUpdateConstraints()
         remakeConstranint()
+        self.animationI.isHidden = false
         self.lineView.isHidden = false
         UIView.animate(withDuration: 0.35) {
             self.snp.remakeConstraints { (make) in
@@ -231,7 +245,27 @@ class CardView: UIView {
             }
             self.superview?.layoutIfNeeded()
         } completion: { (comple) in
-            self.animationI.isHidden = false
+        }
+        
+    }
+    
+    
+    func endListenAnimation(){
+        self.clipsToBounds = true
+        answerResultI.isHidden = true
+        self.answerStr = ""
+        self.setNeedsUpdateConstraints()
+        self.lineView.isHidden = true
+        self.animationI.isHidden = true
+
+        UIView.animate(withDuration: 0.35) {
+            self.snp.remakeConstraints { (make) in
+                make.bottom.equalTo(self.answerL.snp.bottom).offset(52)
+                make.top.equalTo(self.superview!.snp.centerY)
+                make.left.right.equalToSuperview().inset(24)
+            }
+            self.superview?.layoutIfNeeded()
+        } completion: { (comple) in
         }
         
     }
@@ -239,16 +273,15 @@ class CardView: UIView {
     //返回回答结果（正确或者错误）的动画
     func anserReslutAni(){
         
+        animationI.isHidden = true
         answerResultI.isHidden = false
         answerResultI.image = UIImage(named: "错误")
         self.clipsToBounds = false
         
 //        opacity
-        
         let oAni = CABasicAnimation(keyPath: "opacity")
         oAni.fromValue = 0.0
         oAni.toValue = 1.0
-
         
         // 缩放
         let tAni = CABasicAnimation(keyPath: "transform.scale")

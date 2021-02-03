@@ -87,7 +87,7 @@ extension UpVoiceVC: AVAudioRecorderDelegate {
         soundMeters.removeAll()
         
 
-        let path = Bundle.main.path(forResource: "1.wav", ofType: nil)
+        let path = Bundle.main.path(forResource: "2.wav", ofType: nil)
         let url = URL(string: "file://\(path!)")!
         
         MBuploadFile("voice", filePath:self.recordUrl!.absoluteString, fileType: "application/wav", progress: {(progress) in

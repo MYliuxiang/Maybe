@@ -5,13 +5,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GPUDetaiVideoVC" customModule="MayBe" customModuleProvider="target">
             <connections>
                 <outlet property="backImgV" destination="4Ge-xi-U2R" id="buu-BE-FdK"/>
+                <outlet property="backMaskDownI" destination="x4C-W5-UHA" id="jwW-R7-TNS"/>
+                <outlet property="backMaskUpI" destination="eZi-9y-Z1c" id="KKm-dI-aBH"/>
                 <outlet property="gpuImgView" destination="m7d-FU-jpb" id="XLY-bg-pOn"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -23,20 +24,38 @@
             <subviews>
                 <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="4Ge-xi-U2R">
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                    <color key="backgroundColor" systemColor="systemYellowColor"/>
+                    <color key="backgroundColor" red="0.88627450980392153" green="0.93725490196078431" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                 </imageView>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-FU-jpb" customClass="VideoView" customModule="MayBe" customModuleProvider="target">
-                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红色上蒙层" translatesAutoresizingMaskIntoConstraints="NO" id="eZi-9y-Z1c">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="231"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="eZi-9y-Z1c" secondAttribute="height" multiplier="138:77" id="Cak-HZ-Esi"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="红色下蒙层" translatesAutoresizingMaskIntoConstraints="NO" id="x4C-W5-UHA">
+                    <rect key="frame" x="0.0" y="368" width="414" height="528"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="x4C-W5-UHA" secondAttribute="height" multiplier="69:88" id="jpd-bS-NEE"/>
+                    </constraints>
+                </imageView>
+                <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m7d-FU-jpb" customClass="VideoView" customModule="MayBe" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="838" width="414" height="58"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.97776144740000004" green="0.86864477399999995" blue="0.2900030911" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
+                <constraint firstItem="eZi-9y-Z1c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1kI-1w-7Su"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eZi-9y-Z1c" secondAttribute="trailing" id="2vn-Sf-egH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Ge-xi-U2R" secondAttribute="trailing" id="GyO-X6-Vel"/>
                 <constraint firstItem="4Ge-xi-U2R" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="I2h-YP-ow4"/>
+                <constraint firstItem="x4C-W5-UHA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jip-Ah-adb"/>
                 <constraint firstItem="m7d-FU-jpb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="MFD-Bc-ThK"/>
+                <constraint firstAttribute="bottom" secondItem="x4C-W5-UHA" secondAttribute="bottom" id="PUd-F7-52e"/>
                 <constraint firstItem="m7d-FU-jpb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Q73-i2-qq4"/>
+                <constraint firstItem="eZi-9y-Z1c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="URQ-5s-698"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x4C-W5-UHA" secondAttribute="trailing" id="bJS-jI-cXg"/>
                 <constraint firstAttribute="bottom" secondItem="m7d-FU-jpb" secondAttribute="bottom" id="nUL-eB-EmV"/>
                 <constraint firstItem="4Ge-xi-U2R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="o9B-4B-1Qq"/>
                 <constraint firstAttribute="bottom" secondItem="4Ge-xi-U2R" secondAttribute="bottom" id="sgJ-bV-sxH"/>
@@ -46,8 +65,7 @@
         </view>
     </objects>
     <resources>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
+        <image name="红色上蒙层" width="375" height="231"/>
+        <image name="红色下蒙层" width="375" height="528"/>
     </resources>
 </document>

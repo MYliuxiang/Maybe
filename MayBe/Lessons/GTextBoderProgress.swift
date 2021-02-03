@@ -61,14 +61,13 @@ class GTextBoderProgress: UIView {
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.centerX.equalToSuperview()
-
         }
         
     }
     
     
     
-    func configAnimation(text:String, totalTime:Double){
+    func configAnimation(text:String, totalTime:Double, isAni:Bool = true, normalColor:UIColor = .white,borderColor:UIColor = .colorWithHexStr("#17E8CB")){
         
         
         if text.count == 0 {
@@ -80,8 +79,8 @@ class GTextBoderProgress: UIView {
         attaStr.yy_maximumLineHeight = 28
         attaStr.yy_minimumLineHeight = 28
         attaStr.yy_strokeWidth = -3
-        attaStr.yy_strokeColor = .red
-        attaStr.yy_color = .white
+        attaStr.yy_strokeColor = borderColor
+        attaStr.yy_color = normalColor
         attaStr.yy_alignment = .center
         let container = YYTextContainer(size: CGSize(width: self.size.width, height: 1000))
         let layout = YYTextLayout(container: container, text: attaStr)
@@ -117,10 +116,10 @@ class GTextBoderProgress: UIView {
             attaStr1.yy_font = .customName("SemiBold", size: 24)
             attaStr1.yy_maximumLineHeight = 28
             attaStr1.yy_minimumLineHeight = 28
-            attaStr1.yy_strokeWidth = -3
-            attaStr1.yy_strokeColor = .white
             attaStr1.yy_alignment = .center
-            attaStr1.yy_color = .red
+            attaStr1.yy_strokeWidth = -3
+            attaStr1.yy_strokeColor = normalColor
+            attaStr1.yy_color = borderColor
 
            
             let container = YYTextContainer(size: CGSize(width: self.size.width, height: 1000))
@@ -130,14 +129,12 @@ class GTextBoderProgress: UIView {
             labers.append(label)
             label.lineBreakMode = .byClipping
             label.frame = CGRect(x: line.x, y: line.y, width: 0, height: line.height)
-//            label.snp.makeConstraints { (make) in
-//                make.left.equalToSuperview()
-//            }
-//            label.isHidden = true
+
         }
         
-       anginAnimation(time: totalTime)
-    
+        if isAni {
+            anginAnimation(time: totalTime)
+        }
     
     }
     

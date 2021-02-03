@@ -82,9 +82,8 @@
 		22665789245139FE003D2BA4 /* AVAudioPlayer+PCM.m in Sources */ = {isa = PBXBuildFile; fileRef = 22665786245139FE003D2BA4 /* AVAudioPlayer+PCM.m */; };
 		2266578A245139FE003D2BA4 /* AVAudioPlayer+Sample.m in Sources */ = {isa = PBXBuildFile; fileRef = 22665787245139FE003D2BA4 /* AVAudioPlayer+Sample.m */; };
 		2266578C24513E9C003D2BA4 /* libencode.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 2266578B24513E9C003D2BA4 /* libencode.a */; };
+		2266FAF125C928660003312D /* 测试课程.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 2266FAF025C928650003312D /* 测试课程.mp4 */; };
 		22670EAC25A2C3B400A21F6E /* Mems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22670EAB25A2C3B400A21F6E /* Mems.swift */; };
-		22678A6E25C14A8C0065A870 /* 测试课程1.2~1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 22678A6D25C14A8C0065A870 /* 测试课程1.2~1.mp4 */; };
-		22678A7625C14BC10065A870 /* 测试课程1.mp4 in Resources */ = {isa = PBXBuildFile; fileRef = 22678A7525C14BC10065A870 /* 测试课程1.mp4 */; };
 		22678A8125C15F5A0065A870 /* GProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22678A8025C15F5A0065A870 /* GProgressView.swift */; };
 		22678A8625C174FA0065A870 /* GTextBoderProgress.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22678A8525C174FA0065A870 /* GTextBoderProgress.swift */; };
 		22679A4924FE1C010083AE87 /* LessonsTipAlert.xib in Resources */ = {isa = PBXBuildFile; fileRef = 22679A4824FE1C010083AE87 /* LessonsTipAlert.xib */; };
@@ -415,7 +414,6 @@
 		22F473F92519ED1A00C014C8 /* HUDMarco.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F473F52519ED1A00C014C8 /* HUDMarco.swift */; };
 		22F473FA2519ED1A00C014C8 /* MCProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F473F62519ED1A00C014C8 /* MCProgressView.swift */; };
 		22F473FB2519ED1A00C014C8 /* MCVolumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22F473F72519ED1A00C014C8 /* MCVolumeView.swift */; };
-		22F473FD2519F7E100C014C8 /* 1.wav in Resources */ = {isa = PBXBuildFile; fileRef = 22F473FC2519F7E100C014C8 /* 1.wav */; };
 		22FAFFE8255BDDB30007069D /* CourseErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAFFE7255BDDB30007069D /* CourseErrorView.swift */; };
 		22FAFFEC255BF6B40007069D /* CharPsitionLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 22FAFFEB255BF6B40007069D /* CharPsitionLabel.swift */; };
 		4FFF6EA8F766779D1AAC1AA0 /* Pods_MayBe_MayBeUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3B38381201A63EAC6A55DCEE /* Pods_MayBe_MayBeUITests.framework */; };
@@ -525,9 +523,8 @@
 		22665787245139FE003D2BA4 /* AVAudioPlayer+Sample.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AVAudioPlayer+Sample.m"; sourceTree = "<group>"; };
 		22665788245139FE003D2BA4 /* AVAudioPlayer+Sample.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AVAudioPlayer+Sample.h"; sourceTree = "<group>"; };
 		2266578B24513E9C003D2BA4 /* libencode.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libencode.a; sourceTree = "<group>"; };
+		2266FAF025C928650003312D /* 测试课程.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "测试课程.mp4"; sourceTree = "<group>"; };
 		22670EAB25A2C3B400A21F6E /* Mems.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mems.swift; sourceTree = "<group>"; };
-		22678A6D25C14A8C0065A870 /* 测试课程1.2~1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "测试课程1.2~1.mp4"; sourceTree = "<group>"; };
-		22678A7525C14BC10065A870 /* 测试课程1.mp4 */ = {isa = PBXFileReference; lastKnownFileType = file; path = "测试课程1.mp4"; sourceTree = "<group>"; };
 		22678A8025C15F5A0065A870 /* GProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GProgressView.swift; sourceTree = "<group>"; };
 		22678A8525C174FA0065A870 /* GTextBoderProgress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GTextBoderProgress.swift; sourceTree = "<group>"; };
 		22679A4824FE1C010083AE87 /* LessonsTipAlert.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LessonsTipAlert.xib; sourceTree = "<group>"; };
@@ -879,7 +876,6 @@
 		22F473F52519ED1A00C014C8 /* HUDMarco.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HUDMarco.swift; sourceTree = "<group>"; };
 		22F473F62519ED1A00C014C8 /* MCProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCProgressView.swift; sourceTree = "<group>"; };
 		22F473F72519ED1A00C014C8 /* MCVolumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MCVolumeView.swift; sourceTree = "<group>"; };
-		22F473FC2519F7E100C014C8 /* 1.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = 1.wav; sourceTree = "<group>"; };
 		22FAFFE7255BDDB30007069D /* CourseErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CourseErrorView.swift; sourceTree = "<group>"; };
 		22FAFFEB255BF6B40007069D /* CharPsitionLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharPsitionLabel.swift; sourceTree = "<group>"; };
 		3B38381201A63EAC6A55DCEE /* Pods_MayBe_MayBeUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_MayBe_MayBeUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -1352,7 +1348,6 @@
 			isa = PBXGroup;
 			children = (
 				226B21FE259DB8CA00436F2F /* dSYMUpload.sh */,
-				22F473FC2519F7E100C014C8 /* 1.wav */,
 				229FE1A4243F07EB003160CF /* MayBe */,
 				229FE1BB243F07ED003160CF /* MayBeTests */,
 				229FE1C6243F07ED003160CF /* MayBeUITests */,
@@ -1554,9 +1549,8 @@
 				226C801A251DF46600E4A474 /* DemoPlayerVC.swift */,
 				226C801B251DF46600E4A474 /* DemoPlayerVC.xib */,
 				22661A2025207548002A541F /* LxPlayer.swift */,
-				22678A7525C14BC10065A870 /* 测试课程1.mp4 */,
 				2297C7B625A6E0D8005B1F5F /* lily@level1_lesson1_animation.mp4 */,
-				22678A6D25C14A8C0065A870 /* 测试课程1.2~1.mp4 */,
+				2266FAF025C928650003312D /* 测试课程.mp4 */,
 				226F154E25BEBC270001B0A6 /* transparent.png */,
 				227AAF2C25BABC7A00D5006D /* CardView.swift */,
 				227AAF3125BACB1B00D5006D /* CardCycleView.swift */,
@@ -1877,6 +1871,7 @@
 				229AFE8C2593552A006E12D9 /* sound_00069.png in Resources */,
 				229AFE972593552A006E12D9 /* sound_00056.png in Resources */,
 				229AFE7A2593552A006E12D9 /* sound_00078.png in Resources */,
+				2266FAF125C928660003312D /* 测试课程.mp4 in Resources */,
 				229AFEA42593552A006E12D9 /* sound_00064.png in Resources */,
 				229AFE9A2593552A006E12D9 /* sound_00073.png in Resources */,
 				229AFEA82593552A006E12D9 /* sound_00138.png in Resources */,
@@ -1931,7 +1926,6 @@
 				229AFE5325935529006E12D9 /* sound_00156.png in Resources */,
 				229AFE952593552A006E12D9 /* sound_00095.png in Resources */,
 				229AFE892593552A006E12D9 /* sound_00096.png in Resources */,
-				22678A7625C14BC10065A870 /* 测试课程1.mp4 in Resources */,
 				227030AC253195D0007E31EA /* CoursewareCell.xib in Resources */,
 				223B7C9A2488E9CE00F2BE7F /* error@2x.png in Resources */,
 				229AFE8E2593552A006E12D9 /* sound_00057.png in Resources */,
@@ -1946,7 +1940,6 @@
 				229AFE4225935529006E12D9 /* sound_00144.png in Resources */,
 				229AFE732593552A006E12D9 /* sound_00131.png in Resources */,
 				226D2DD2255924CA00B3B1DD /* NationalitiesCell.xib in Resources */,
-				22678A6E25C14A8C0065A870 /* 测试课程1.2~1.mp4 in Resources */,
 				229AFE8D2593552A006E12D9 /* sound_00043.png in Resources */,
 				229AFEB92593552A006E12D9 /* sound_00074.png in Resources */,
 				2265F57B24FE37C50065A81A /* DetailLCell.xib in Resources */,
@@ -2106,7 +2099,6 @@
 				229AFECB2593552A006E12D9 /* sound_00165.png in Resources */,
 				2265316E258A091A0038B689 /* DiaioListCell.xib in Resources */,
 				229AFED42593552A006E12D9 /* sound_00012.png in Resources */,
-				22F473FD2519F7E100C014C8 /* 1.wav in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

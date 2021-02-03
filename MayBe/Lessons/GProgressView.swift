@@ -65,7 +65,7 @@ class GProgressView: UIView {
         
     }
     
-    func configAnimation(subtitles:[String], totalTime:Double){
+    func configAnimation(subtitles:[String],delay:Double?, totalTime:Double){
        
         if subtitles.count == 0 {
             subtitleL.text = ""
@@ -131,7 +131,11 @@ class GProgressView: UIView {
             label.isHidden = true
         }
         
-        anginAnimation(time: totalTime)
+        
+        let aniBeginTime = delay ?? 0.0
+        LXAsync.delay(aniBeginTime) {[weak self] in
+            self?.anginAnimation(time: totalTime)
+        }
                         
     }
     

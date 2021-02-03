@@ -204,7 +204,7 @@ static NSString *const kPresentationSize         = @"presentationSize";
     if (self.totalTime > 0) {
         [_player.currentItem cancelPendingSeeks];
         
-        CMTime seekTime = CMTimeMake(time * 1000, 1000);
+        CMTime seekTime = CMTimeMake(time * 25, 25);
         [_player seekToTime:seekTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:completionHandler];
     } else {
         self.seekTime = time;

@@ -102,6 +102,8 @@
         return CGRectZero;
 
     }
+    
+   
 
     NSRange characterRange = NSMakeRange(charIndex, 1);
 

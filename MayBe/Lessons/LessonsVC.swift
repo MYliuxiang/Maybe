@@ -55,20 +55,20 @@ class LessonsVC: BaseViewController ,URLSessionDelegate, URLSessionTaskDelegate,
         //添加网络权限的通知
         NotificationCenter.addObserver(observer: self, selector: #selector(handleRestrictedStateNotice), name: NotificationName.RestrictedStateNotice)
         
-//        let vStitle = VideoTitlesAniView()
-//        view.addSubview(vStitle)
-//        vStitle.snp.makeConstraints { (make) in
-//            make.left.equalToSuperview().offset(40)
-//            make.right.equalToSuperview().offset(-40)
-//            make.top.equalTo(200)
-//        }
-//
-//        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
-//            DispatchQueue.main.async {
-//                vStitle.configAnimation(subtitles: ["we","shi","meiguo","ren"], totalTime: 3)
-//            }
-//        }
-//
+        let vStitle = VideoTitlesAniView()
+        view.addSubview(vStitle)
+        vStitle.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview().offset(-40)
+            make.top.equalTo(200)
+        }
+
+        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.async {
+                vStitle.configAnimation(subtitles: ["we","shi","meiguo","we","shi"], totalTime: 3)
+            }
+        }
+
 //        DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
 //            DispatchQueue.main.async {
 //                vStitle.anginAnimation(time: 3)

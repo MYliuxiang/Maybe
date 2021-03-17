@@ -74,12 +74,19 @@ enum NotificationName: String {
 
 //课件展示形式type
 enum CourseWareType:String {
+
     case PinyinEnglish = "Pinyin + English"
     case PinyinCharactersEnglish = "Pinyin + Characters + English"
+    case PinyinOnly = "Pinyin only"
+    case PinyinCharacters = "Pinyin + Characters"
+
+
     init?(courseWareType:String) {
         switch courseWareType {
         case "Pinyin + English":  self = .PinyinEnglish
-        case "Pinyin + Characters + English":  self = .PinyinCharactersEnglish           
+        case "Pinyin + Characters + English":  self = .PinyinCharactersEnglish
+        case "Pinyin only":  self = .PinyinOnly
+        case "Pinyin + Characters":  self = .PinyinCharacters
         default:
             return nil
         }

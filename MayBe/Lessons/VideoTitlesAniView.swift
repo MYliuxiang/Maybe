@@ -15,7 +15,13 @@ class VideoTitlesAniView: UIView {
     var bgViews:[UIView]! = [UIView]()
     var timer:DispatchSourceTimer?
     var showtimer:DispatchSourceTimer?
-    
+    lazy var resultI:UIImageView = {
+        let img = UIImageView();
+        img.contentMode = .center
+        img.isHidden = true
+        return img;
+        
+    }()
     var lines:[Line]! = [Line]()
     var labers:[ProgressLabel]! = [ProgressLabel]()
     var totalwidth:CGFloat! = 0
@@ -59,11 +65,15 @@ class VideoTitlesAniView: UIView {
         subtitleL.numberOfLines = 0
         subtitleL.backgroundColor = .clear
         addSubview(subtitleL)
+        addSubview(resultI)
+        
         
     }
     
-    func configAnimation(subtitles:[String], totalTime:Double){
+    
+    func configAnimation(subtitles:[String], totalTime:Double,isAni:Bool = true,backColor:UIColor = .colorWithHexStr("#17E8CB"), defaultFont:UIFont = .customName("Black", size: 40),lineHeight:CGFloat = 56){
         
+        self.isHidden = false
         //清除背景数组里面的背景
         for bgview in bgViews{
             bgview.removeFromSuperview()
@@ -76,16 +86,20 @@ class VideoTitlesAniView: UIView {
         subtitleL.snp.makeConstraints { (make) in
             make.top.left.right.equalToSuperview()
         }
+        
+        resultI.snp.makeConstraints { (make) in
+            make.center.equalTo(self.subtitleL)
+        }
                 
         let str = subtitles.joined(separator: " ")
         let attaStr = NSMutableAttributedString(string: str)
-        attaStr.yy_font = .customName("Black", size: 40)
+        attaStr.yy_font = defaultFont
         attaStr.yy_alignment = .center
-        attaStr.yy_maximumLineHeight = 56
-        attaStr.yy_minimumLineHeight = 56
+        attaStr.yy_maximumLineHeight = lineHeight
+        attaStr.yy_minimumLineHeight = lineHeight
         attaStr.yy_lineSpacing = -14
         attaStr.yy_color = .colorWithHexStr("#131616")
-        let container = YYTextContainer(size: CGSize(width: self.size.width, height: 1000))
+        let container = YYTextContainer(size: CGSize(width: ScreenWidth - 80, height: 1000))
         let layout = YYTextLayout(container: container, text: attaStr)
         subtitleL.textLayout = layout
                         
@@ -107,35 +121,69 @@ class VideoTitlesAniView: UIView {
         
         
         for (idx,syline) in yylayouts.enumerated(){
-           
+            
+            
             let bgV = UIView()
-            bgV.frame = CGRect(x: syline.bounds.minX - 4, y: syline.bounds.minY, width: syline.bounds.width, height: syline.bounds.height)
-            if idx == yylayouts.count - 1 {
-                bgV.frame = CGRect(x: syline.bounds.minX - 4, y: syline.bounds.minY, width: syline.bounds.width + 8, height: syline.bounds.height)
+            var top:CGFloat
+            var height:CGFloat
+            
+            if topView == nil {
+                top = syline.bounds.minY
+                height = syline.bounds.height
+            }else{
+                top = (topView?.bounds.maxY)! - 16
+                height = syline.bounds.maxY - top
             }
-            bgV.backgroundColor = .colorWithHexStr("#17E8CB")
-            bgV.layer.cornerRadius = 4
+            
+            bgV.frame = CGRect(x: syline.bounds.minX - 12, y: top, width: syline.bounds.width + 12, height: height)
+            if idx == yylayouts.count - 1 {
+                bgV.frame = CGRect(x: syline.bounds.minX - 12, y: top, width: syline.bounds.width + 24, height: height)
+            }
+            bgV.backgroundColor = backColor
+            bgV.layer.cornerRadius = 16
             bgV.layer.masksToBounds = true
             bgV.alpha = 1
             insertSubview(bgV, at: 0)
-            totalwidth += bgV.bounds.width
             bgViews.append(bgV)
+            
+            var line:Line = Line()
+            line.x = bgV.left
+            line.y = bgV.top
+            line.width = bgV.width
+            line.height = bgV.height
+            line.text = str.ex_substring(at: syline.range.location, length: syline.range.length)
+            self.totalwidth += bgV.width
+            lines.append(line)
+            if isAni {
+                bgV.frame = CGRect(x: syline.bounds.minX - 12, y: top, width: 0, height: height)
+
+            }
+            topView = bgV
+                        
         }
         
-        var progress:CGFloat = 0
-        let secondes = 0.02
-        timer = DispatchSource.makeTimerSource()
-        timer?.schedule(deadline: DispatchTime.now(),repeating: secondes)
-        self.timer?.setEventHandler(handler: {
-            DispatchQueue.main.sync {
-                 // 回调 回到了主线程
-                progress += 0.02
-                self.displayProgress(prog: progress)
-               
-              }
-        })
+        
+        if isAni {
+            var progress:CGFloat = 0
+            let secondes = 0.02
+            timer = DispatchSource.makeTimerSource()
+            timer?.schedule(deadline: DispatchTime.now(),repeating: secondes)
+            self.timer?.setEventHandler(handler: {
+                DispatchQueue.main.sync {
+                     // 回调 回到了主线程
+                    progress += 0.02
+                   let p = progress / CGFloat(totalTime)
+                    self.displayProgress(prog: p)
+                    if p >= 1{
+                        self.timer?.cancel()
+                    }
+                   
+                  }
+            })
 
-        self.timer?.resume()
+            self.timer?.resume()
+        }
+        
          
     }
     
@@ -143,13 +191,15 @@ class VideoTitlesAniView: UIView {
         
         var width = totalwidth * prog
         
+      
+        
         for(idx,myline) in lines.enumerated() {
-            let bgView = bgViews[idx]
+            let bgV = bgViews[idx]
             if width <= myline.width {
-                bgView.width = width
+                bgV.width = width
                 break
             }else{
-                bgView.frame = CGRect(x: myline.x, y: myline.y, width: myline.width, height: myline.height)
+                bgV.frame = CGRect(x: myline.x, y: myline.y, width: myline.width, height: myline.height)
                 width =  width - myline.width
             }
         }
@@ -235,7 +285,7 @@ class VideoTitlesAniView: UIView {
     override func layoutSubviews() {
         superview?.layoutSubviews()
         subtitleL.preferredMaxLayoutWidth = self.width
-        
+   
         
     }
     

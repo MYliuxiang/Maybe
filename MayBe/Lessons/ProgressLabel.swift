@@ -31,6 +31,8 @@ class ProgressLabel: UILabel {
     override func draw(_ rect: CGRect) {
         
         super.draw(rect)
+        let context = UIGraphicsGetCurrentContext()
+
         fillColor.set()
 //        UIColor.red.set()
         let fillRect = CGRect(x: 0, y: 0, width: self.bounds.width * progress, height: self.bounds.size.height)

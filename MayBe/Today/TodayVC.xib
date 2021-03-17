@@ -34,16 +34,22 @@
                         <action selector="uploadRecord:" destination="-1" eventType="touchUpInside" id="Pl6-xj-zr7"/>
                     </connections>
                 </button>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-CW-wKa">
-                    <rect key="frame" x="77" y="151" width="240" height="128"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="yxG-CW-wKa">
+                    <rect key="frame" x="87" y="194" width="240" height="128"/>
+                    <color key="backgroundColor" red="0.45882352939999999" green="0.98823529409999999" blue="0.29803921570000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="240" id="pVM-p5-4xe"/>
+                        <constraint firstAttribute="height" constant="128" id="vJP-aE-pZh"/>
+                    </constraints>
                 </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="yxG-CW-wKa" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="3ta-0w-vTC"/>
                 <constraint firstItem="jDR-vw-EZP" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="8gt-Wz-6OW"/>
                 <constraint firstItem="pqb-2e-5CE" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="FAe-yW-WM5"/>
+                <constraint firstItem="yxG-CW-wKa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="150" id="J6e-9o-Y8X"/>
                 <constraint firstItem="jDR-vw-EZP" firstAttribute="top" secondItem="pqb-2e-5CE" secondAttribute="bottom" constant="28" id="RpB-e3-kwP"/>
                 <constraint firstItem="pqb-2e-5CE" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="beo-EH-XBJ"/>
             </constraints>

@@ -173,7 +173,7 @@ extension StreamPost:Foundation.URLSessionDelegate,Foundation.URLSessionTaskDele
     func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data){
 
         self.responseData.append(data)
-        if self.subUrl?.contains("/dialogs") ?? false{
+//        if self.subUrl?.contains("/dialogs") ?? false{
             //获取数据长度
             let lenthByte = [UInt8](self.responseData);
             let lenBytes : [UInt8] = [lenthByte[0],lenthByte[1],lenthByte[2],lenthByte[3]]
@@ -217,7 +217,7 @@ extension StreamPost:Foundation.URLSessionDelegate,Foundation.URLSessionTaskDele
                 }
                 self.responseData.removeAll()
             }
-        }
+//        }
     }
     
 
@@ -237,9 +237,9 @@ extension StreamPost:Foundation.URLSessionDelegate,Foundation.URLSessionTaskDele
         }
         
         if error != nil {
-            if self.subUrl?.contains("/dialogs") ?? false{
-                       return
-                   }
+//            if self.subUrl?.contains("/dialogs") ?? false{
+//                       return
+//                   }
             if self.completion != nil {
                 self.completion!(.failure(.netError),self.created_on)
                 debugPrint("上传失败")
@@ -249,9 +249,9 @@ extension StreamPost:Foundation.URLSessionDelegate,Foundation.URLSessionTaskDele
         }
                 
         if self.responseData.count != 0{
-            if self.subUrl?.contains("/dialogs") ?? false{
+//            if self.subUrl?.contains("/dialogs") ?? false{
                 self.responseData.removeFirst(8)
-            }
+//            }
             
             if let dic = JSON(self.responseData).dictionaryObject,let code = JSON(self.responseData)["code"].int{
                 switch code {

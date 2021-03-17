@@ -12,17 +12,36 @@ import HWPanModal
 
 class DiaioListView: HWPanModalContentView {
     
-    var tablewView:UITableView = UITableView(frame: .zero, style: .grouped)
-    var titleLab:UILabel = {
+    var tablewView:UITableView = UITableView(frame: .zero, style: .plain)
+    var disPlayLab:UILabel = {
         let lab = UILabel()
-        lab.textColor = UIColor.colorWithHexStr("#131616")
-        lab.font = .customName("SemiBold", size: 16)
-        lab.text = "Now, you can ask Lily..."
+        lab.textColor = UIColor.colorWithHexStr("#051724")
+        lab.font = .customName("Medium", size: 16)
+        lab.text = "Pinyin + Characters"
         lab.textAlignment = .center
         return lab
     }()
+    
+    var topImage:UIImageView = {
+        let ig = UIImageView()
+        ig.backgroundColor = .red
+        return ig
+    }()
+    
+    lazy var topView:UIView = {
+        let v = UIView()
+        v.layer.cornerRadius = 20
+        v.layer.masksToBounds = true
+        v.backgroundColor = .colorWithHexStr("#F9FBFB")
+        return v
+    }()
+    
+    
+    
+    
+    
         
-    var pushBlock:(()->())?
+    var pushBlock:((_ type:Int)->())?
     
     init() {
         super.init(frame: .zero)
@@ -36,40 +55,97 @@ class DiaioListView: HWPanModalContentView {
     func creatUI(){
         
         self.backgroundColor = .white
-        addSubview(titleLab)
+        addSubview(topImage)
+        addSubview(topView)
+        
+        let lab = UILabel()
+        lab.textColor = UIColor.colorWithHexStr("#051724")
+        lab.font = .customName("Bold", size: 16)
+        lab.text = "Display:"
+        
+        let topI1 = UIImageView()
+        topI1.image = UIImage(named: "显示模式_设置icon")
+        
+        let topI2 = UIImageView()
+        topI2.image = UIImage(named: "显示模式_箭头icon")
+        topView.addSubview(topI1)
+        topView.addSubview(lab)
+        topView.addSubview(disPlayLab)
+        topView.addSubview(topI2)
+
+                    
+        
         tablewView.delegate = self
         tablewView.dataSource = self
         addSubview(tablewView)
         tablewView.backgroundColor = .white
         tablewView.separatorStyle = .none
-        
-        let closetBtn = UIButton(type: .custom)
-        closetBtn.setImage(UIImage(named: "关闭技能卡片icon"), for: .normal)
-        closetBtn.addTarget(self, action: #selector(closeAC), for: .touchUpInside)
-        addSubview(closetBtn)
-        
-        titleLab.snp.makeConstraints { (make) in
+                
+        topImage.snp.makeConstraints { (make) in
             make.centerX.equalToSuperview()
-            make.top.equalTo(32)
-            make.left.greaterThanOrEqualToSuperview().offset(20)
-            make.right.greaterThanOrEqualToSuperview().offset(20)
+            make.top.equalTo(20)
+            make.width.equalTo(40)
+            make.height.equalTo(20)
         }
         
+        topView.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview().inset(20)
+            make.height.equalTo(68)
+            make.top.equalTo(self.topImage.snp.bottom).offset(30)
+        }
+        
+        topI1.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalToSuperview().inset(16)
+            
+        }
+        
+        lab.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(topI1.snp.right).offset(8)
+        }
+        
+        
+        disPlayLab.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.left.equalTo(lab.snp.right)
+        }
+        
+        topI2.snp.makeConstraints { (make) in
+            make.centerY.equalToSuperview()
+            make.right.equalToSuperview().inset(16)
+        }
+        
+        
+        
+        
         tablewView.snp.makeConstraints { (make) in
-            make.top.equalTo(self.titleLab).offset(40)
+            make.top.equalTo(self.topView.snp.bottom).offset(30)
             make.left.equalToSuperview()
             make.right.equalToSuperview()
             make.bottom.equalToSuperview()
         }
         
-        closetBtn.snp.makeConstraints { (make) in
-            make.centerX.equalToSuperview()
-            make.width.equalTo(72)
-            make.height.equalTo(64)
-            make.bottom.equalToSuperview().offset(-34)
-        }
+        
+        let tap = UITapGestureRecognizer(target: self, action: #selector(displayMode))
+        self.topView.addGestureRecognizer(tap)
+    
+        
+
         
     }
+    
+    @objc func displayMode(){
+        
+        print("切换模式")
+        
+        if (self.pushBlock != nil) {
+            self.pushBlock!(1)
+        }
+       
+    }
+    
+    
     
     @objc func closeAC(){
         
@@ -91,7 +167,7 @@ extension DiaioListView{
     }
     
     override func longFormHeight() -> PanModalHeight {
-        return PanModalHeight(type: .content, height: ScreenHeight - 150)
+        return PanModalHeight(type: .content, height: ScreenHeight - 102)
     }
     
     override func presentingVCAnimationStyle() -> PresentingViewControllerAnimationStyle {
@@ -167,11 +243,19 @@ extension DiaioListView: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 0.1
+        return 40
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UIView()
+        let lab = UILabel()
+        lab.textColor = UIColor.colorWithHexStr("#C5D3D3")
+        lab.font = .customName("SemiBold", size: 16)
+        lab.text = "Now, you can ask Lily..."
+        lab.frame = CGRect(x: 24, y: 10, width: ScreenWidth, height: 20)
+        view.addSubview(lab)
+        view.backgroundColor = .white
+        
         
         return view
     }
@@ -192,7 +276,7 @@ extension DiaioListView: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         if (self.pushBlock != nil) {
-            self.pushBlock!()
+            self.pushBlock!(0)
         }
       
     }

@@ -15,12 +15,18 @@ class TodayVC: BaseViewController {
     var frames:[UIImage] = [UIImage]()
     private var generator:AVAssetImageGenerator!
     var imageIndex:Int = 0
+    
+    lazy var videoPlayer:LxPlayer = {
+        let player = LxPlayer(containerView: videoImg)
+        player.player?.containerView.layer.backgroundColor = UIColor.white.cgColor
+        return player
+    }()
 
     
     func getAllFrames() -> [UIImage] {
         
 //        let videoPath = Bundle.main.path(forResource: "lily@level1_weather_sun_001.mov", ofType: nil)
-        let videoPath = Bundle.main.path(forResource: "lily@level1_lesson1_animation.mp4", ofType: nil)
+        let videoPath = Bundle.main.path(forResource: "output.m4v", ofType: nil)
 
         let url = URL(fileURLWithPath: videoPath!)
         let asset:AVAsset = AVAsset(url:url)
@@ -63,13 +69,35 @@ class TodayVC: BaseViewController {
         label.backgroundColor = .red
         view.addSubview(label)
         
-        getAllFrames()
-        
-        
-      
-        
+       let frames = getAllFrames()
+       videoImg.image = frames.first
+        playerPlay()
+        videoPlayer.playerManger?.play()
+            
+    }
+    
+    func playerPlay(){
        
 
+        let videoPath = Bundle.main.path(forResource: "output.m4v", ofType: nil)
+        let url = URL(fileURLWithPath: videoPath!)
+                
+        videoPlayer.playerManger?.assetURL = url
+        videoPlayer.playerManger?.prepareToPlay()
+             
+
+        //设置时间回调的间隔
+        videoPlayer.playerManger?.timeRefreshInterval = 0.001
+        
+        videoPlayer.playerManger?.playerPlayTimeChanged = {[weak self](asset, currentTime, duration) in
+            
+          
+        }
+        //播放完成回调
+        videoPlayer.playerManger?.playerDidToEnd = {(asset) in
+            
+        }
+        
     }
     
    

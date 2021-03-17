@@ -17,7 +17,7 @@ import Foundation
 */
 
 //let baseIP = "13.67.52.192"
-let baseIP = "192.168.5.16"
+let baseIP = "192.168.5.12"
 
 //let baseIP = "104.248.148.85"
 let BaseUrl = "https://\(baseIP):8000"

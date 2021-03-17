@@ -39,6 +39,16 @@ class LessonsVC: BaseViewController ,URLSessionDelegate, URLSessionTaskDelegate,
         super.viewDidLoad()
         
         
+//        let inView = InputCard(alignment: .left, font: .customName("SemiBold", size: 24))
+//        view.addSubview(inView)
+//        inView.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(20)
+//            make.right.lessThanOrEqualToSuperview().offset(20);
+//            make.top.equalTo(self.view).inset(200)
+//            make.bottom.equalTo(inView.rightL.snp.bottom).offset(16)
+//        }
+//
+//        inView.configError(errorStr: "jiāo", contentStr: "wo jiāo Jack", rightStr: "jiào")
 
         
         
@@ -55,19 +65,19 @@ class LessonsVC: BaseViewController ,URLSessionDelegate, URLSessionTaskDelegate,
         //添加网络权限的通知
         NotificationCenter.addObserver(observer: self, selector: #selector(handleRestrictedStateNotice), name: NotificationName.RestrictedStateNotice)
         
-        let vStitle = VideoTitlesAniView()
-        view.addSubview(vStitle)
-        vStitle.snp.makeConstraints { (make) in
-            make.left.equalToSuperview().offset(40)
-            make.right.equalToSuperview().offset(-40)
-            make.top.equalTo(200)
-        }
-
-        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
-            DispatchQueue.main.async {
-                vStitle.configAnimation(subtitles: ["we","shi","meiguo","we","shi"], totalTime: 3)
-            }
-        }
+//        let vStitle = VideoTitlesAniView()
+//        view.addSubview(vStitle)
+//        vStitle.snp.makeConstraints { (make) in
+//            make.left.equalToSuperview().offset(40)
+//            make.right.equalToSuperview().offset(-40)
+//            make.top.equalTo(200)
+//        }
+//
+//        DispatchQueue.global().asyncAfter(deadline: .now() + 0.5) {
+//            DispatchQueue.main.async {
+//                vStitle.configAnimation(subtitles: ["we","shi","meiguo","we","shi"], totalTime: 3)
+//            }
+//        }
 
 //        DispatchQueue.global().asyncAfter(deadline: .now() + 5) {
 //            DispatchQueue.main.async {

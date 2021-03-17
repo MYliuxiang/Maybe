@@ -7,6 +7,14 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+        <array key="Gilroy-Medium.ttf">
+            <string>Gilroy-Medium</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="GPUDetaiVideoVC" customModule="MayBe" customModuleProvider="target">
             <connections>
@@ -14,7 +22,14 @@
                 <outlet property="backMaskDownI" destination="x4C-W5-UHA" id="jwW-R7-TNS"/>
                 <outlet property="backMaskUpI" destination="eZi-9y-Z1c" id="KKm-dI-aBH"/>
                 <outlet property="gpuImgView" destination="m7d-FU-jpb" id="XLY-bg-pOn"/>
+                <outlet property="leftBotomL" destination="aSI-Q8-06g" id="Ygm-r1-sEc"/>
+                <outlet property="leftV" destination="eyZ-aR-jAI" id="oNg-rV-Wnq"/>
+                <outlet property="rightBottomL" destination="8TZ-HW-Wg9" id="qzX-hF-TJl"/>
+                <outlet property="rightCenterL" destination="PIP-Pb-oxo" id="tkp-Y7-MWE"/>
+                <outlet property="rightV" destination="rYv-r0-Rrq" id="qJx-0m-geA"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="voiceBg" destination="6Lf-a3-bsD" id="JXB-LR-L1P"/>
+                <outlet property="voiceI" destination="DNV-Tr-jqk" id="5sM-te-RZv"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -42,30 +57,134 @@
                     <rect key="frame" x="0.0" y="838" width="414" height="58"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </view>
+                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eyZ-aR-jAI">
+                    <rect key="frame" x="33" y="600" width="156" height="162"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="绿色button" translatesAutoresizingMaskIntoConstraints="NO" id="8vw-xb-E89">
+                            <rect key="frame" x="0.0" y="0.0" width="156" height="162"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <gestureRecognizers/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="szM-zf-SrM" appends="YES" id="SqW-rG-3sb"/>
+                            </connections>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Repeat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aSI-Q8-06g">
+                            <rect key="frame" x="44" y="88" width="68" height="20"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy-Bold" pointSize="20"/>
+                            <color key="textColor" red="0.074509803920000006" green="0.086274509799999996" blue="0.086274509799999996" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="重复icon" translatesAutoresizingMaskIntoConstraints="NO" id="UXN-ww-lPT">
+                            <rect key="frame" x="63" y="44" width="30" height="34"/>
+                        </imageView>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="156" id="A7j-Iz-R5r"/>
+                        <constraint firstAttribute="trailing" secondItem="8vw-xb-E89" secondAttribute="trailing" id="I2B-0D-AL9"/>
+                        <constraint firstItem="aSI-Q8-06g" firstAttribute="top" secondItem="UXN-ww-lPT" secondAttribute="bottom" constant="10" id="Mx5-Cf-kJV"/>
+                        <constraint firstItem="UXN-ww-lPT" firstAttribute="top" secondItem="eyZ-aR-jAI" secondAttribute="top" constant="44" id="V9R-5n-NcW"/>
+                        <constraint firstAttribute="bottom" secondItem="8vw-xb-E89" secondAttribute="bottom" id="ftN-qF-9Zn"/>
+                        <constraint firstItem="UXN-ww-lPT" firstAttribute="centerX" secondItem="eyZ-aR-jAI" secondAttribute="centerX" id="jLJ-F6-Yml"/>
+                        <constraint firstItem="8vw-xb-E89" firstAttribute="top" secondItem="eyZ-aR-jAI" secondAttribute="top" id="jmA-Bl-ur9"/>
+                        <constraint firstAttribute="height" constant="162" id="tR5-uQ-zsp"/>
+                        <constraint firstItem="aSI-Q8-06g" firstAttribute="centerX" secondItem="eyZ-aR-jAI" secondAttribute="centerX" id="zBV-G4-1HI"/>
+                        <constraint firstItem="8vw-xb-E89" firstAttribute="leading" secondItem="eyZ-aR-jAI" secondAttribute="leading" id="zmH-oC-Z0J"/>
+                    </constraints>
+                </view>
+                <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rYv-r0-Rrq">
+                    <rect key="frame" x="231" y="600" width="156" height="162"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="黄色button" translatesAutoresizingMaskIntoConstraints="NO" id="lR6-5q-B1o">
+                            <rect key="frame" x="0.0" y="0.0" width="156" height="162"/>
+                            <gestureRecognizers/>
+                            <connections>
+                                <outletCollection property="gestureRecognizers" destination="ML3-yl-sCo" appends="YES" id="wIM-sB-DDb"/>
+                            </connections>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PIP-Pb-oxo">
+                            <rect key="frame" x="68.5" y="44" width="19.5" height="36"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Medium" family="Gilroy-Medium" pointSize="36"/>
+                            <color key="textColor" red="0.074509803921568626" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your turn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8TZ-HW-Wg9">
+                            <rect key="frame" x="36" y="90" width="84" height="20"/>
+                            <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy-Bold" pointSize="20"/>
+                            <color key="textColor" red="0.074509803921568626" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="8TZ-HW-Wg9" firstAttribute="centerX" secondItem="rYv-r0-Rrq" secondAttribute="centerX" id="2sx-8C-iLt"/>
+                        <constraint firstAttribute="height" constant="162" id="BBH-mW-iJf"/>
+                        <constraint firstItem="lR6-5q-B1o" firstAttribute="leading" secondItem="rYv-r0-Rrq" secondAttribute="leading" id="Huf-pg-UDs"/>
+                        <constraint firstItem="PIP-Pb-oxo" firstAttribute="centerX" secondItem="rYv-r0-Rrq" secondAttribute="centerX" id="ToJ-eV-YFy"/>
+                        <constraint firstAttribute="trailing" secondItem="lR6-5q-B1o" secondAttribute="trailing" id="XKL-84-fkg"/>
+                        <constraint firstAttribute="bottom" secondItem="lR6-5q-B1o" secondAttribute="bottom" id="dEj-hE-2Yc"/>
+                        <constraint firstAttribute="width" constant="156" id="irI-uZ-l2l"/>
+                        <constraint firstItem="lR6-5q-B1o" firstAttribute="top" secondItem="rYv-r0-Rrq" secondAttribute="top" id="m7l-hI-uBY"/>
+                        <constraint firstItem="8TZ-HW-Wg9" firstAttribute="top" secondItem="PIP-Pb-oxo" secondAttribute="bottom" constant="10" id="uuh-9T-ia9"/>
+                        <constraint firstItem="PIP-Pb-oxo" firstAttribute="top" secondItem="rYv-r0-Rrq" secondAttribute="top" constant="44" id="xK3-NA-RbZ"/>
+                    </constraints>
+                </view>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="白色蒙版" translatesAutoresizingMaskIntoConstraints="NO" id="6Lf-a3-bsD">
+                    <rect key="frame" x="0.0" y="686" width="414" height="210"/>
+                </imageView>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="动效02" translatesAutoresizingMaskIntoConstraints="NO" id="DNV-Tr-jqk">
+                    <rect key="frame" x="142.5" y="723" width="129" height="129"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="129" id="6OZ-Wy-VXv"/>
+                        <constraint firstAttribute="width" constant="129" id="fQh-cB-yuu"/>
+                    </constraints>
+                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.97776144740000004" green="0.86864477399999995" blue="0.2900030911" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
             <constraints>
+                <constraint firstItem="DNV-Tr-jqk" firstAttribute="bottom" secondItem="i5M-Pr-FkT" secondAttribute="bottom" constant="-44" id="1MV-VD-4l4"/>
                 <constraint firstItem="eZi-9y-Z1c" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="1kI-1w-7Su"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="eZi-9y-Z1c" secondAttribute="trailing" id="2vn-Sf-egH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="4Ge-xi-U2R" secondAttribute="trailing" id="GyO-X6-Vel"/>
                 <constraint firstItem="4Ge-xi-U2R" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="I2h-YP-ow4"/>
+                <constraint firstItem="DNV-Tr-jqk" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="JE4-VT-ChS"/>
                 <constraint firstItem="x4C-W5-UHA" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="Jip-Ah-adb"/>
                 <constraint firstItem="m7d-FU-jpb" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="MFD-Bc-ThK"/>
+                <constraint firstItem="6Lf-a3-bsD" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="NXI-az-csN"/>
                 <constraint firstAttribute="bottom" secondItem="x4C-W5-UHA" secondAttribute="bottom" id="PUd-F7-52e"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="eyZ-aR-jAI" secondAttribute="bottom" constant="100" id="Q4K-G2-FPn"/>
                 <constraint firstItem="m7d-FU-jpb" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Q73-i2-qq4"/>
                 <constraint firstItem="eZi-9y-Z1c" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="URQ-5s-698"/>
+                <constraint firstItem="6Lf-a3-bsD" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="WA1-Cd-8uN"/>
+                <constraint firstAttribute="bottom" secondItem="6Lf-a3-bsD" secondAttribute="bottom" id="ZgA-JK-8fX"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="x4C-W5-UHA" secondAttribute="trailing" id="bJS-jI-cXg"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="rYv-r0-Rrq" secondAttribute="bottom" constant="100" id="l43-qJ-BZ4"/>
                 <constraint firstAttribute="bottom" secondItem="m7d-FU-jpb" secondAttribute="bottom" id="nUL-eB-EmV"/>
                 <constraint firstItem="4Ge-xi-U2R" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="o9B-4B-1Qq"/>
                 <constraint firstAttribute="bottom" secondItem="4Ge-xi-U2R" secondAttribute="bottom" id="sgJ-bV-sxH"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="m7d-FU-jpb" secondAttribute="trailing" id="wKa-de-9NF"/>
             </constraints>
-            <point key="canvasLocation" x="-146.37681159420291" y="68.973214285714278"/>
+            <point key="canvasLocation" x="-549.27536231884062" y="23.4375"/>
         </view>
+        <tapGestureRecognizer id="szM-zf-SrM">
+            <connections>
+                <action selector="leftTapAC:" destination="-1" id="hdi-C8-9Gq"/>
+            </connections>
+        </tapGestureRecognizer>
+        <tapGestureRecognizer id="ML3-yl-sCo">
+            <connections>
+                <action selector="rightTapAC:" destination="-1" id="7UE-6v-U46"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
+        <image name="动效02" width="128" height="128"/>
+        <image name="白色蒙版" width="375" height="210"/>
         <image name="红色上蒙层" width="375" height="231"/>
         <image name="红色下蒙层" width="375" height="528"/>
+        <image name="绿色button" width="156" height="162"/>
+        <image name="重复icon" width="30" height="34"/>
+        <image name="黄色button" width="156" height="162"/>
     </resources>
 </document>

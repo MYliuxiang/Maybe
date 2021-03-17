@@ -10,11 +10,12 @@ import UIKit
 
 class CardCycleView: UIView {
 
-    let pointWidth:CGFloat = 6
+    let pointWidth:CGFloat = 5
+    let color:UIColor = .colorWithHexStr("#C5D3D3")
     
     lazy var red1:UIView = {
         let animationView = UIView()
-        animationView.backgroundColor = .gray
+        animationView.backgroundColor = color
         animationView.layer.cornerRadius = pointWidth/2.0
         animationView.clipsToBounds = true
         return animationView;
@@ -22,7 +23,7 @@ class CardCycleView: UIView {
     
     lazy var red2:UIView = {
         let animationView = UIView()
-        animationView.backgroundColor = .gray
+        animationView.backgroundColor = color
         animationView.layer.cornerRadius = pointWidth/2.0
         animationView.clipsToBounds = true
         return animationView;
@@ -30,7 +31,7 @@ class CardCycleView: UIView {
     
     lazy var red3:UIView = {
         let animationView = UIView()
-        animationView.backgroundColor = .gray
+        animationView.backgroundColor = color
         animationView.layer.cornerRadius = pointWidth/2.0
         animationView.clipsToBounds = true
         return animationView;

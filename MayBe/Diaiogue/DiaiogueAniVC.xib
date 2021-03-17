@@ -1,17 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Gilroy-Bold.ttf">
+            <string>Gilroy-Bold</string>
+        </array>
+        <array key="Gilroy-SemiBold.ttf">
+            <string>Gilroy-SemiBold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="DiaiogueAniVC" customModule="MayBe" customModuleProvider="target">
             <connections>
+                <outlet property="backI" destination="Di1-K4-jUp" id="vV3-0i-5Qg"/>
+                <outlet property="backTopI" destination="hWF-6b-Kfj" id="yHv-Sp-vii"/>
+                <outlet property="frontI" destination="vCB-jz-vc2" id="A02-Ym-qhu"/>
+                <outlet property="videoView" destination="pyP-VR-1X0" id="nk5-fH-WbI"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="voiceBtn" destination="FyL-zl-rLy" id="v0U-LD-yRU"/>
+                <outlet property="voiceStateI" destination="CdC-fh-YMN" id="SB4-Oq-7jx"/>
+                <outlet property="voiceTipL" destination="FGJ-sc-WR1" id="SFY-dh-WW5"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
@@ -19,57 +34,128 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Di1-K4-jUp">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hWF-6b-Kfj" customClass="JHAnimatedImageView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pyP-VR-1X0" customClass="VideoView" customModule="MayBe" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="bottom" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="录音_红色效果" translatesAutoresizingMaskIntoConstraints="NO" id="CdC-fh-YMN">
+                    <rect key="frame" x="0.0" y="621.5" width="414" height="274.5"/>
+                    <constraints>
+                        <constraint firstAttribute="width" secondItem="CdC-fh-YMN" secondAttribute="height" multiplier="207:128" constant="-30" id="1u9-3U-56c"/>
+                    </constraints>
+                </imageView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="vCB-jz-vc2" customClass="JHAnimatedImageView">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0mO-tl-T1y">
-                    <rect key="frame" x="20" y="44" width="44" height="44"/>
+                    <rect key="frame" x="24" y="44" width="28" height="44"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="cTv-St-2xc"/>
-                        <constraint firstAttribute="width" constant="44" id="nPQ-Mb-jnU"/>
+                        <constraint firstAttribute="width" constant="28" id="nPQ-Mb-jnU"/>
                     </constraints>
-                    <state key="normal" image="关闭icon"/>
+                    <state key="normal" image="关闭3icon"/>
                     <connections>
                         <action selector="dismissAC:" destination="-1" eventType="touchUpInside" id="hEE-R6-3mr"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juU-cK-axw">
-                    <rect key="frame" x="171" y="764" width="72" height="64"/>
-                    <state key="normal" image="编组 7备份"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CC2-Mw-UUB">
-                    <rect key="frame" x="294.5" y="780" width="32" height="32"/>
-                    <state key="normal" image="技能列表 icon"/>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Yi-PK-0P1">
-                    <rect key="frame" x="87.5" y="780" width="32" height="32"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FyL-zl-rLy" customClass="LxDragButton" customModule="MayBe" customModuleProvider="target">
+                    <rect key="frame" x="118.5" y="788" width="177" height="64"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="32" id="smK-34-iof"/>
-                        <constraint firstAttribute="height" constant="32" id="xYZ-En-Vrg"/>
+                        <constraint firstAttribute="height" constant="64" id="1Xe-YZ-LfC"/>
+                        <constraint firstAttribute="width" constant="177" id="ptb-np-Rim"/>
                     </constraints>
-                    <state key="normal" image="对话记录 icon"/>
+                    <fontDescription key="fontDescription" name="Gilroy-Bold" family="Gilroy-Bold" pointSize="18"/>
+                    <inset key="titleEdgeInsets" minX="13" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <state key="normal" title="Press to speak" image="录音icon3">
+                        <color key="titleColor" red="0.074509803921568626" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
-                        <action selector="pushDiaioList:" destination="-1" eventType="touchUpInside" id="tu9-FH-E4M"/>
+                        <action selector="voiceTouchCancel:" destination="-1" eventType="touchCancel" id="jc5-F3-hRV"/>
+                        <action selector="voiceTouchDown:" destination="-1" eventType="touchDown" id="frS-4o-JrN"/>
+                        <action selector="voiceTouchDragEnter:" destination="-1" eventType="touchDragEnter" id="VSo-XM-fhF"/>
+                        <action selector="voiceTouchDragExit:" destination="-1" eventType="touchDragExit" id="bYy-sy-uih"/>
+                        <action selector="voiceTouchUpInside:" destination="-1" eventType="touchUpInside" id="KmX-AO-gYb"/>
+                        <action selector="voiceTouchUpOutside:" destination="-1" eventType="touchUpOutside" id="xa4-Ol-Nd8"/>
+                    </connections>
+                </button>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please speak" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FGJ-sc-WR1">
+                    <rect key="frame" x="164" y="579.5" width="86" height="14"/>
+                    <fontDescription key="fontDescription" name="Gilroy-SemiBold" family="Gilroy-SemiBold" pointSize="14"/>
+                    <color key="textColor" red="0.074509803921568626" green="0.086274509803921567" blue="0.086274509803921567" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kyf-Mq-R6d">
+                    <rect key="frame" x="362" y="44" width="28" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="8Jy-f9-AbY"/>
+                        <constraint firstAttribute="height" constant="44" id="JKj-Qg-Ngh"/>
+                    </constraints>
+                    <state key="normal" image="更多icon"/>
+                    <connections>
+                        <action selector="moreAC:" destination="-1" eventType="touchUpInside" id="4E0-Qi-3Tb"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bWy-qK-UAt">
+                    <rect key="frame" x="310" y="44" width="28" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="28" id="b8n-1l-IbY"/>
+                        <constraint firstAttribute="height" constant="44" id="v4h-m7-PIC"/>
+                    </constraints>
+                    <state key="normal" image="对话记录icon"/>
+                    <connections>
+                        <action selector="pushDiaioList:" destination="-1" eventType="touchUpInside" id="Trs-JO-3sn"/>
                     </connections>
                 </button>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="juU-cK-axw" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Kan-iV-Tal"/>
-                <constraint firstItem="0mO-tl-T1y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="20" id="PMd-vV-AKI"/>
-                <constraint firstItem="CC2-Mw-UUB" firstAttribute="centerY" secondItem="juU-cK-axw" secondAttribute="centerY" id="Uf0-q2-dDE"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="juU-cK-axw" secondAttribute="bottom" constant="34" id="WgA-1w-Gkk"/>
+                <constraint firstItem="pyP-VR-1X0" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="1UN-nJ-AXI"/>
+                <constraint firstItem="kyf-Mq-R6d" firstAttribute="centerY" secondItem="0mO-tl-T1y" secondAttribute="centerY" id="31n-6W-Rct"/>
+                <constraint firstAttribute="bottom" secondItem="pyP-VR-1X0" secondAttribute="bottom" id="4Fd-0j-gSr"/>
+                <constraint firstItem="CdC-fh-YMN" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="4cr-Ld-tr8"/>
+                <constraint firstItem="Di1-K4-jUp" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="6kr-HO-Evu"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="kyf-Mq-R6d" secondAttribute="trailing" constant="24" id="8gC-7P-t9R"/>
+                <constraint firstAttribute="bottom" secondItem="FyL-zl-rLy" secondAttribute="bottom" constant="44" id="CHt-vN-202"/>
+                <constraint firstItem="pyP-VR-1X0" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="GLC-gT-fLa"/>
+                <constraint firstItem="CdC-fh-YMN" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="J0Y-Ag-s6g"/>
+                <constraint firstItem="FyL-zl-rLy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="PLv-XZ-Qk2"/>
+                <constraint firstItem="0mO-tl-T1y" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="24" id="PMd-vV-AKI"/>
+                <constraint firstAttribute="bottom" secondItem="hWF-6b-Kfj" secondAttribute="bottom" id="RhU-MD-i9b"/>
+                <constraint firstItem="vCB-jz-vc2" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="SxF-wq-8WH"/>
+                <constraint firstItem="bWy-qK-UAt" firstAttribute="centerY" secondItem="0mO-tl-T1y" secondAttribute="centerY" id="UVx-v3-ndW"/>
+                <constraint firstAttribute="bottom" secondItem="Di1-K4-jUp" secondAttribute="bottom" id="V1g-08-crd"/>
+                <constraint firstItem="vCB-jz-vc2" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="WVw-fr-bQL"/>
+                <constraint firstItem="FGJ-sc-WR1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="aDE-Rd-KYM"/>
+                <constraint firstAttribute="bottom" secondItem="CdC-fh-YMN" secondAttribute="bottom" id="bDV-Er-rjp"/>
+                <constraint firstItem="kyf-Mq-R6d" firstAttribute="leading" secondItem="bWy-qK-UAt" secondAttribute="trailing" constant="24" id="baK-Yq-tHn"/>
+                <constraint firstItem="CdC-fh-YMN" firstAttribute="top" secondItem="FGJ-sc-WR1" secondAttribute="bottom" constant="28" id="cCS-0D-GHp"/>
+                <constraint firstItem="Di1-K4-jUp" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dR7-bn-x6R"/>
+                <constraint firstItem="vCB-jz-vc2" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="dl2-fe-mR2"/>
                 <constraint firstItem="0mO-tl-T1y" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="eJN-Gf-9Vm"/>
-                <constraint firstItem="2Yi-PK-0P1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="0.5" id="gv3-gv-b3F"/>
-                <constraint firstItem="CC2-Mw-UUB" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" multiplier="1.5" id="wH3-1g-4BI"/>
-                <constraint firstItem="2Yi-PK-0P1" firstAttribute="centerY" secondItem="juU-cK-axw" secondAttribute="centerY" id="yqj-ct-eoh"/>
+                <constraint firstItem="hWF-6b-Kfj" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="g8p-R8-qVS"/>
+                <constraint firstItem="pyP-VR-1X0" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="gj7-xg-vMV"/>
+                <constraint firstItem="Di1-K4-jUp" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="orC-7w-xsj"/>
+                <constraint firstAttribute="bottom" secondItem="vCB-jz-vc2" secondAttribute="bottom" id="raK-4b-Fe7"/>
+                <constraint firstItem="hWF-6b-Kfj" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="srh-AW-Q3W"/>
+                <constraint firstItem="hWF-6b-Kfj" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="vhj-KP-Nbb"/>
             </constraints>
-            <point key="canvasLocation" x="88" y="64"/>
+            <point key="canvasLocation" x="-52.173913043478265" y="84.375"/>
         </view>
     </objects>
     <resources>
-        <image name="关闭icon" width="28" height="28"/>
-        <image name="对话记录 icon" width="32" height="32"/>
-        <image name="技能列表 icon" width="32" height="32"/>
-        <image name="编组 7备份" width="72" height="64"/>
+        <image name="关闭3icon" width="28" height="28"/>
+        <image name="对话记录icon" width="28" height="28"/>
+        <image name="录音_红色效果" width="375" height="236"/>
+        <image name="录音icon3" width="20" height="17"/>
+        <image name="更多icon" width="28" height="28"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -48,6 +48,9 @@ class GPUModel: BaseModel {
     var audio:[GAudio]?
     var background:Background?
     var title:Title?
+    var leftOption:GOption?
+    var rightOption:GOption?
+
 
     
    
@@ -84,6 +87,17 @@ class GPUModel: BaseModel {
 //            subAni.nextAni = (index == (teachs.count - 1)) ? teachs.first : teachs[index + 1]
 //            subAni.finishAni = (index == (teachs.count - 1)) ? nil : ani.endAni![index]
 //        }
+    }
+}
+
+class GOption: BaseModel {
+    var pos:String?
+    var oClass:String?
+    var len:Int?
+   
+    override func mapping(mapper: HelpingMapper) {
+           mapper <<<
+               self.oClass <-- "class"
     }
 }
 
@@ -135,7 +149,7 @@ class Background: BaseModel {
 }
 
 enum IClass: String, HandyJSONEnum {
-    case Placeholder = "placeholder" //…
+    case Default = "default" //…
     case WrongAnswer = "wrong_answer" //❌动态出现
     case SayWrong = "say_wrong" //❌静态保持
     case Congrats = "congrats" //✅动态出现
@@ -143,6 +157,7 @@ enum IClass: String, HandyJSONEnum {
     case WrongPronunciation = "wrong_pronunciation" //wrong pronunciation
     case CorrectPronunciation = "correct_pronunciation" //wrong pronunciation
     case unknown = ""
+    case General = "general"
   
 
 }
@@ -153,6 +168,8 @@ class Input: BaseModel {
     var placeholder:String?
     var pos:String?
     var content:String?
+    var len:Float?
+    var title:String?
    
     override func mapping(mapper: HelpingMapper) {
            mapper <<<
@@ -162,16 +179,46 @@ class Input: BaseModel {
 
 class Query: BaseModel {
     var top:Top?
-    var sub:String?
+    var sub:QSub?
     var pos:Double?
     var content:String?
     var len:Double?
+}
+
+enum QSTClass: String, HandyJSONEnum {
+    case Emphasize = "emphasize"
+    case None = ""
 
 }
 
+class QSub: BaseModel {
+    var tclass:QSTClass?
+    var value:String?
+    override func mapping(mapper: HelpingMapper) {
+           mapper <<<
+               self.tclass <-- "class"
+    }
+}
+
+enum QTClass: String, HandyJSONEnum {
+    case Unfold = "unfold"
+    case Unfolded = "unfolded"
+    case None = ""
+
+}
+
+
+
 class Top: BaseModel {
+    var pos:Float?
+    var len:Float?
+    var tclass:QTClass?
     var unfold:String?
     var value:String?
+    override func mapping(mapper: HelpingMapper) {
+           mapper <<<
+               self.tclass <-- "class"
+    }
 }
 
 class GAudio: BaseModel {
@@ -181,10 +228,13 @@ class GAudio: BaseModel {
 
 enum TClass: String, HandyJSONEnum {
     case WrongAnswer = "wrong_answer" //红色wrong answer出现并左右摇摆 da2 cuo4 le直接出现
-    case SayWrong = "say_wrong" //top：红色wrong answer保持静态 sub：da2 cuo4 le伴随语音从左到右变色
-    case Congrats = "congrats" //top：绿色great出现并上下晃动 sub：hen3 hao3直接出现
-    case SayCongrats = "say_congrats" //top：绿色great保持静态 sub：hen3 hao3伴随语音从左到右变色
     case WrongPronunciation = "wrong_pronunciation" //未定
+    
+    case Explain = "explain" //绿色You can say出现
+    case Tryagain = "try_again" //绿色Try again出现
+    case Congrats = "congrats" //绿色Great出现
+    case Repeat = "repeat" //彩色Repeat出现
+    case Translate = "translate" //彩色Translate出现
     case unknown = ""
     
     func getNormal() -> UIColor {
@@ -200,18 +250,18 @@ enum TClass: String, HandyJSONEnum {
         case .WrongAnswer:
             borderColor = .colorWithHexStr("#FF5C5C")
             break
-        case .SayWrong:
-            borderColor = .colorWithHexStr("#FF5C5C")
+//        case .SayWrong:
+//            borderColor = .colorWithHexStr("#FF5C5C")
 
-            break
+//            break
         case .Congrats:
             borderColor = .colorWithHexStr("#17E8CB")
 
             break
-        case .SayCongrats:
-            borderColor = .colorWithHexStr("#17E8CB")
-
-            break
+//        case .SayCongrats:
+//            borderColor = .colorWithHexStr("#17E8CB")
+//
+//            break
         case .WrongPronunciation:
             borderColor = .colorWithHexStr("#17E8CB")
             break
@@ -222,33 +272,37 @@ enum TClass: String, HandyJSONEnum {
         
         return borderColor
     }
-    
-    
-    func getTitleImage() -> UIImage{
+    func getTitleImage() -> UIImage?{
         
-        var image:UIImage
+        var image:UIImage?
         switch self {
         
         case .WrongAnswer:
-            image = UIImage(named: "wrong answer")!
+            image = UIImage(named: "Wrong answer")!
             break
-        case .SayWrong:
-            image = UIImage(named: "wrong answer")!
+        case .Explain :
+            image = UIImage(named: "You can say")!
+
+            break
+        case .Tryagain:
+            image = UIImage(named: "Try agagin")!
 
             break
         case .Congrats:
-            image = UIImage(named: "编组 3")!
+            image = UIImage(named: "Great")!
 
             break
-        case .SayCongrats:
-            image = UIImage(named: "编组 3")!
+        case .Repeat:
+            image = UIImage(named: "Repeat")!
 
             break
-        case .WrongPronunciation:
-            image = UIImage(named: "编组 3")!
+        case .Translate:
+            image = UIImage(named: "Translate")!
+
             break
+        
         default:
-            image = UIImage(named: "编组 3")!
+            image = nil
             break
         }
         
@@ -274,8 +328,6 @@ class Sub: BaseModel {
     var unfold:String?
     var value:String?
 }
-
-
 
 
 
@@ -328,9 +380,7 @@ class VAnimation: BaseModel {
     var id:String?
     var begin:String?
     var end:String?
-    
-    
-    
+        
     var split:Int?
     var endAni:[VAnimation]?
     var teachingAni:[VAnimation]?

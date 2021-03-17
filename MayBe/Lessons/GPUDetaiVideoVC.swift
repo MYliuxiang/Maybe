@@ -10,25 +10,88 @@ import UIKit
 
 class GPUDetaiVideoVC: BaseViewController {
 
-    
    
     var movie: GPUImageMovie!
     var filter: GPUImageChromaKeyBlendFilter!
     var sourcePicture: GPUImagePicture!
     var player = AVPlayer()
+    var countimer:DispatchSourceTimer?
     
 
-  
+    @IBOutlet weak var leftV: UIView!
+    @IBOutlet weak var leftBotomL: UILabel!
+    @IBOutlet weak var rightV: UIView!
+    @IBOutlet weak var rightBottomL: UILabel!
+    @IBOutlet weak var rightCenterL: UILabel!
     @IBOutlet weak var gpuImgView: GPUImageView!
     @IBOutlet weak var backImgV: UIImageView!
-    
     @IBOutlet weak var backMaskUpI: UIImageView!
-    
     @IBOutlet weak var backMaskDownI: UIImageView!
     
+    @IBOutlet weak var voiceI: UIImageView!
+    
+    @IBOutlet weak var voiceBg: UIImageView!
+    
+    
+    //模拟用户说话的timer
+    var moniTimer:DispatchSourceTimer?
+
+    
+    
+    
+    lazy var inputBV:UIView = {
+        let label = UIView()
+        label.backgroundColor = .white
+        label.layer.cornerRadius = 16
+        label.layer.masksToBounds = true
+        label.isHidden = true
+        return label
+    }()
+    
+    lazy var inputBL:UILabel = {
+        let label = UILabel()
+        label.font = .customName("Medium", size: 14)
+        label.textColor = .colorWithHexStr("#FFB90F")
+        label.textAlignment = .center
+        label.text = "Click on the card to answer immediately"
+        return label
+    }()
+    
+    lazy var inputBI:UIImageView = {
+        let label = UIImageView()
+        label.image = UIImage(named: "编组 8")
+        return label
+    }()
+    
+    
+    
+    var vStitle:VideoTitlesAniView = VideoTitlesAniView()
+    
+    lazy var centerCard:InputCard = {
+        let v = InputCard(alignment: .left, font: .customName("SemiBold", size: 24))
+        v.isHidden = true
+        return v
+    }()
+
+    
+    lazy var inputTitleImage:UIImageView = {
+        let img = UIImageView();
+        img.contentMode = .center
+        img.isHidden = true
+        return img;
+        
+    }()
+    
+    lazy var subTitle:UILabel = {
+        let label = UILabel()
+        label.font = .customName("SemiBoldItalic", size: 24)
+        label.textColor = .colorWithHexStr("#131616")
+        label.textAlignment = .center
+        return label
+    }()
     
     lazy var carView:CardView = {
-        let carV = CardView(frame: CGRect(x: 24, y: 0, width: ScreenWidth - 48, height: 100))
+        let carV = CardView(frame: CGRect(x: 24, y: 0, width: ScreenWidth - 48, height: 200))
         carV.isHidden = true
         return carV
     }()
@@ -38,10 +101,6 @@ class GPUDetaiVideoVC: BaseViewController {
         img.isUserInteractionEnabled = true
         return img
     }()
-    
-
-    
-   
     
     lazy var videoPlayer:LxPlayer = {
         let player = LxPlayer(containerView: videoPreImg)
@@ -56,10 +115,17 @@ class GPUDetaiVideoVC: BaseViewController {
     }()
     
     lazy var answerStateI:UIImageView = {
-        let anI = UIImageView(frame: CGRect(x: (ScreenWidth - 226 ) / 2, y: (ScreenHeight - 44 ) / 2, width: 226, height: 44))
+        let anI = UIImageView()
         anI.isUserInteractionEnabled = true
-        anI.image = UIImage(named: "编组 3")
         anI.isHidden = true
+        return anI
+    }()
+    
+    lazy var centerStateI:UIImageView = {
+        let anI = UIImageView()
+        anI.isUserInteractionEnabled = true
+        anI.isHidden = true
+        anI.image = UIImage(named: "You can say")
         return anI
     }()
         
@@ -72,7 +138,6 @@ class GPUDetaiVideoVC: BaseViewController {
     var currentModel:GPUModel?
     var uploader:StreamPost?
     var pcmRecoder:MbRecorder?
-    var vStitle:VideoTitlesAniView = VideoTitlesAniView()
     
     var waitList:[AniTime]? {
         didSet{
@@ -99,10 +164,30 @@ class GPUDetaiVideoVC: BaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        navBar.leftButton.left = navBar.leftButton.left + 16
+        navBar.leftButton.top = navBar.leftButton.top + 10
+
         creatUI()
         playerPlay()
         loadData()
         creatLogFile()
+        
+        
+        
+        voiceI.image = UIImage(named: "动效00")
+        
+        var imags = [UIImage]()
+        for idx in 0...74 {
+            
+            let imageName = String(format: "动效%.2d.png", idx)
+            let image = UIImage(named: imageName)!
+            imags.append(image)
+        }
+        voiceI.animationImages = imags
+        voiceI.animationDuration = 4.0
+        voiceI.animationRepeatCount = 0
+               
+        
     }
     
     //打印日志
@@ -189,6 +274,21 @@ class GPUDetaiVideoVC: BaseViewController {
         
     }
     
+    
+    
+    func setSubtitleL(text:String, color:UIColor = .colorWithHexStr("#131616"),strokenWidth:CGFloat = -3,strokeColor:UIColor = .white){
+        
+        let attaStr = NSMutableAttributedString(string: text)
+        attaStr.yy_font = .customName("SemiBoldItalic", size: 24)
+        attaStr.yy_maximumLineHeight = 24
+        attaStr.yy_minimumLineHeight = 28
+        attaStr.yy_strokeWidth = -3
+        attaStr.yy_strokeColor = .white
+        attaStr.yy_color = .colorWithHexStr("#131616")
+        attaStr.yy_alignment = .center
+        subTitle.attributedText = attaStr
+    }
+    
     func playModel(model:GPUModel?){
         
         guard let cmodel = model else {
@@ -197,80 +297,303 @@ class GPUDetaiVideoVC: BaseViewController {
         }
         self.playend = false
         self.currentModel = cmodel
-        
 
         self.currentAni = cmodel.video?.first
+        
+
         self.videoPlayer.playerManger?.play()
         self.seekTimeAndPlayer(time: self.currentAni?.begin)
         
         //语音
         //播放录音数据
-        
-      
         reinitAudioPlayer(data: cmodel.audio?.first?.speech)
         let audioBeginTime = cmodel.audio?.first?.pos ?? 0.0
-        
         if cmodel.audio != nil{
             LXAsync.delay(audioBeginTime) {[weak self] in
                 self?.audioPlayer?.play()
             }
         }
        
-        
-        if cmodel.input?.iclass?.rawValue.count == 0 {
-           
-            //queary
-            carView.cofigwithBox(query: cmodel.query, totalTime: self.audioPlayer!.duration)
-            carView.endListenAnimation()
+        if cmodel.query?.sub?.value?.count != 0{
             
-        }else{
-            //用户输入录制语音 播放视频
-            carView.cofigwithBox(query: cmodel.query, totalTime: self.audioPlayer!.duration)
-            carView.startListenAnimation()
+            self.vStitle.isHidden = false
+            self.subTitle.isHidden = false
+            //显示字幕信息
+            let strArray = (cmodel.query?.top?.value ?? "").split(separator: " ").compactMap { "\($0)"}
             
-            if cmodel.input?.iclass == IClass.WrongAnswer || cmodel.input?.iclass == IClass.Congrats {
-                carView.anserReslutAni()
+            let isAni:Bool = cmodel.query?.top?.tclass == QTClass.Unfold
+            self.vStitle.configAnimation(subtitles: strArray, totalTime: self.audioPlayer?.duration ?? 0,isAni: isAni)
+            if cmodel.query?.sub?.tclass == QSTClass.None {
+                setSubtitleL(text: cmodel.query?.sub?.value ?? "")
+
             }else{
-                carView.answerResultI.isHidden = false
-                carView.clipsToBounds = false
+                
+                setSubtitleL(text: cmodel.query?.sub?.value ?? "",color: .colorWithHexStr("#17E8CB"),strokeColor: .colorWithHexStr("#131616"))
+
             }
+        }else{
+            self.vStitle.isHidden = true
+            self.subTitle.isHidden = true
         }
-        
+      
+        if cmodel.input?.iclass?.rawValue.count == 0 {
+            centerCard.isHidden = true
+            self.voiceI.isHidden = true
+            self.voiceBg.isHidden = true
+            self.voiceI.stopAnimating()
+
+        }else if cmodel.input?.iclass == IClass.General {
+            centerCard.isHidden = false
+            centerCard.contentStr = "Wo jiao Lily. Ni jiao shen me mingzi？"
+            self.voiceI.isHidden = true
+            self.voiceBg.isHidden = true
+            self.voiceI.stopAnimating()
+
+           
+        }else{
+            
+            if cmodel.input?.title?.count == 0 {
+//                voiceI.isHidden = false
+            }else{
+//                self.centerStateI.isHidden = false
+//                LXAsync.delay(1) {
+                    
+                self.voiceI.isHidden = false
+                self.voiceBg.isHidden = false
+                self.voiceI.startAnimating()
+                self.centerStateI.isHidden = true
+
+//                }
+                
+                var count = 0
+                
+                let defaluts = ["Wo jiao","Lily. Ni","jiao shen me","mingzi？"]
+                var strs:[String] = [String]()
+                
+                
+                
+                moniTimer = DispatchSource.makeTimerSource()
+
+                moniTimer?.schedule(deadline: DispatchTime.now() + 1.5, repeating: 0.7)
+                self.moniTimer?.setEventHandler(handler: { [self] in
+                    DispatchQueue.main.sync {
+                        // 回调 回到了主线程
+                        centerCard.isHidden = false
+                        strs.append(defaluts[count])
+                        
+                        centerCard.contentStr = strs.joined(separator: "")
+                        
+                        
+                       
+                        count += 1
+                        if count > 3{
+                            self.moniTimer?.cancel()
+                        }
+                    }
+                })
+                self.moniTimer?.resume()
+                                
+            }
+           
+          
+           
+
+//            if cmodel.input?.iclass == IClass.WrongAnswer || cmodel.input?.iclass == IClass.Congrats {
+//                carView.anserReslutAni()
+//            }else{
+//                carView.answerResultI.isHidden = false
+//                carView.clipsToBounds = false
+//            }
+        }
+
         backgroundAni(back: cmodel.background!)
-        
-        if cmodel.title?.top?.count == 0{
+
+        if cmodel.title?.tclass == TClass.unknown{
             //头部消失
             self.answerStateI.isHidden = true
-            self.gtextboderL.isHidden = true
-            
-            carView.setNeedsUpdateConstraints()
-            carView.answerResultI.isHidden = true
-           
-            UIView.animate(withDuration: 0.35) {
-                self.carView.snp.remakeConstraints { (make) in
-                    make.bottom.equalTo(self.carView.answerL.snp.bottom).offset(52)
-                    make.top.equalTo(self.view.snp.centerY)
-                    make.left.right.equalToSuperview().inset(24)
-                }
-                self.carView.superview?.layoutIfNeeded()
-            } completion: { (comple) in
-            
-            }
+//            self.gtextboderL.isHidden = true
+
+//            carView.setNeedsUpdateConstraints()
+//            carView.answerResultI.isHidden = true
+//
+//            UIView.animate(withDuration: 0.35) {
+//                self.carView.snp.remakeConstraints { (make) in
+//                    make.bottom.equalTo(self.carView.answerL.snp.bottom).offset(52)
+//                    make.top.equalTo(self.view.snp.centerY)
+//                    make.left.right.equalToSuperview().inset(24)
+//                }
+//                self.carView.superview?.layoutIfNeeded()
+//            } completion: { (comple) in
+//
+//            }
 
         }else{
             //头部显示
+            self.answerStateI.isHidden = false
             self.answerStateAnimation(title: cmodel.title!)
             var isAni:Bool = true
             if cmodel.title?.tclass == TClass.WrongAnswer || cmodel.title?.tclass == TClass.Congrats || cmodel.title?.tclass == TClass.WrongPronunciation{
                 isAni = false
                 //直接出现
             }
-            gtextboderL.isHidden = false
-            gtextboderL.configAnimation(text: (cmodel.title?.sub?.value)!, totalTime: self.audioPlayer!.duration,isAni: isAni, normalColor: cmodel.title?.tclass?.getNormal() ?? UIColor.white ,borderColor: cmodel.title?.tclass?.getBorderColor() ?? UIColor.colorWithHexStr("#17E8CB"))
-           
+
+            
+         
+            if cmodel.input?.iclass == IClass.Congrats || cmodel.input?.iclass == IClass.SayCongrats {
+                self.centerCard.resultI.image = UIImage(named: "路径 2")
+                self.centerCard.resultI.isHidden = false
+//                self.inputTitleImage.image = UIImage(named: "路径 2")
+//                self.inputTitleImage.isHidden = false
+               
+            }else if cmodel.input?.iclass == IClass.WrongAnswer || cmodel.input?.iclass == IClass.SayWrong {
+                //错误
+                
+                self.centerCard.resultI.image = UIImage(named: "形状结合")
+                self.centerCard.resultI.isHidden = false
+//                self.inputTitleImage.image = UIImage(named: "形状结合")
+//                self.inputTitleImage.isHidden = false
+               
+            }else{
+                
+                return
+            }
+
+            self.centerCard.setNeedsUpdateConstraints()
+//            self.inputTitleImage.setNeedsUpdateConstraints()
+   
+
+            UIView.animate(withDuration: 0.35) {
+                self.centerCard.snp.remakeConstraints { (make) in
+                    make.centerX.equalToSuperview()
+//                    make.width.equalTo(self.centerCard.contentL.snp.width).offset(32)
+//                    make.left.right.lessThanOrEqualToSuperview().inset(20)
+
+                    make.top.equalTo(self.answerStateI.snp.bottom).offset(80)
+                    make.bottom.equalTo(self.centerCard.contentL.snp.bottom).offset(16)
+                }
+//                self.inputTitleImage.snp.remakeConstraints{ (make) in
+//                    make.centerX.equalTo(self.inputTitle)
+//                    make.centerY.equalTo(self.inputTitle).offset(50)
+//
+////                    make.center.equalToSuperview().offset(50)
+//                    make.height.width.equalTo(121)
+////
+//                }
+                self.centerCard.superview?.layoutIfNeeded()
+//                self.inputTitleImage.superview?.layoutIfNeeded()
+            } completion: { (comple) in
+
+            }
+            
+         
+
+
 
         }
+
+            
         
+        return
+        
+      
+        carView.maskBlock = { [weak self] in
+            self?.inputBV.isHidden = true
+        }
+        
+        if cmodel.input?.iclass?.rawValue.count == 0 {
+            carView.endListenAnimation()
+        }else if cmodel.input?.iclass == IClass.General {
+            carView.endListen()
+            carView.answerL.text = "bababa"
+            carView.answerL.textColor = .colorWithHexStr("#131616");
+        }else{
+           
+            carView.isHidden = false
+            if cmodel.input?.iclass == IClass.Default {
+                carView.startListenAnimation(placeholder: (cmodel.input?.placeholder)!,len: cmodel.input?.len ?? 0.0)
+                carView.timerTL.text = cmodel.input?.content ?? ""
+                inputBV.isHidden = false
+            }else{
+                carView.answerResultI.isHidden = false
+            }
+           
+
+//            if cmodel.input?.iclass == IClass.WrongAnswer || cmodel.input?.iclass == IClass.Congrats {
+//                carView.anserReslutAni()
+//            }else{
+//                carView.answerResultI.isHidden = false
+//                carView.clipsToBounds = false
+//            }
+        }
+
+        backgroundAni(back: cmodel.background!)
+
+        if cmodel.title?.tclass == TClass.unknown{
+            //头部消失
+            self.answerStateI.isHidden = true
+//            self.gtextboderL.isHidden = true
+
+//            carView.setNeedsUpdateConstraints()
+//            carView.answerResultI.isHidden = true
+//
+//            UIView.animate(withDuration: 0.35) {
+//                self.carView.snp.remakeConstraints { (make) in
+//                    make.bottom.equalTo(self.carView.answerL.snp.bottom).offset(52)
+//                    make.top.equalTo(self.view.snp.centerY)
+//                    make.left.right.equalToSuperview().inset(24)
+//                }
+//                self.carView.superview?.layoutIfNeeded()
+//            } completion: { (comple) in
+//
+//            }
+
+        }else{
+            //头部显示
+            self.answerStateI.isHidden = false
+            self.answerStateAnimation(title: cmodel.title!)
+            var isAni:Bool = true
+            if cmodel.title?.tclass == TClass.WrongAnswer || cmodel.title?.tclass == TClass.Congrats || cmodel.title?.tclass == TClass.WrongPronunciation{
+                isAni = false
+                //直接出现
+            }
+//            gtextboderL.isHidden = false
+//            gtextboderL.configAnimation(text: (cmodel.title?.sub?.value)!, totalTime: self.audioPlayer!.duration,isAni: isAni, normalColor: cmodel.title?.tclass?.getNormal() ?? UIColor.white ,borderColor: cmodel.title?.tclass?.getBorderColor() ?? UIColor.colorWithHexStr("#17E8CB"))
+            
+            carView.setNeedsUpdateConstraints()
+            carView.answerResultI.isHidden = false
+            carView.animationI.isHidden = true
+            
+
+            if cmodel.input?.iclass == IClass.Congrats || cmodel.input?.iclass == IClass.SayCongrats {
+                carView.answerResultI.image = UIImage(named: "路径 2")
+                carView.answerL.text = "bababa"
+                carView.answerL.textColor = .colorWithHexStr("#131616");
+            }else if cmodel.input?.iclass == IClass.WrongAnswer || cmodel.input?.iclass == IClass.SayWrong {
+                //错误
+                carView.answerResultI.image = UIImage(named: "形状结合")
+                carView.answerL.text = "bababa"
+                carView.answerL.textColor = .colorWithHexStr("#131616");
+            }else{
+                
+                return
+            }
+
+            UIView.animate(withDuration: 0.35) {
+                self.carView.snp.remakeConstraints { (make) in
+//                    make.top.equalTo(self.view.snp.centerY)
+                    make.left.right.equalToSuperview().inset(24)
+                    make.top.equalTo(self.answerStateI.snp.bottom).offset(24)
+                    make.height.equalTo(181)
+                }
+                self.carView.superview?.layoutIfNeeded()
+            } completion: { (comple) in
+
+            }
+
+
+
+        }
+
         
         return
         
@@ -444,8 +767,93 @@ class GPUDetaiVideoVC: BaseViewController {
 //        self.playModel(model: model);
 //    }
     
-    func playNext(){
+    
+    func handleModelPlayEnd(){
         
+        guard let cmodel = self.currentModel else {
+            
+            return
+        }
+        
+        if cmodel.leftOption?.oClass?.count == 0,cmodel.rightOption?.oClass?.count == 0 {
+            playNext()
+            return
+        }
+    
+        if cmodel.leftOption?.oClass?.count == 0 {
+            
+            UIView.animate(withDuration: 0.6) {
+                self.leftV.isHidden = true
+            }
+            
+        }else{
+            
+            UIView.animate(withDuration: 0.6) {
+                self.leftV.isHidden = false
+            }
+            
+            self.leftBotomL.text = cmodel.leftOption?.oClass ?? ""
+                        
+        }
+       
+        
+        if cmodel.rightOption?.oClass?.count == 0 {
+            
+            UIView.animate(withDuration: 0.6) {
+                self.rightV.isHidden = true
+            }
+           
+            self.leftV.setNeedsUpdateConstraints()
+            self.leftV.snp.removeConstraints()
+            self.leftV.snp.remakeConstraints({ (make) in
+                make.right.equalTo(self.view.snp.centerX).offset(-5)
+            })
+            self.view.layoutIfNeeded()
+            self.leftV.centerX = ScreenWidth / 2.0
+           
+        }else{
+            
+            UIView.animate(withDuration: 0.6) {
+                self.rightV.isHidden = false
+            }
+            
+            self.leftV.right = ScreenWidth / 2.0 - 5
+            
+            self.leftV.setNeedsUpdateConstraints()
+            self.leftV.snp.removeConstraints()
+            self.leftV.snp.remakeConstraints({ (make) in
+                make.right.equalTo(self.view.snp.centerX)
+            })
+            self.view.layoutIfNeeded()
+            self.rightBottomL.text = cmodel.rightOption?.oClass ?? ""
+            self.rightCenterL.text = "\(cmodel.rightOption?.len ?? 0)"
+
+        }
+        
+        var count = 0
+        let total = cmodel.rightOption?.len ?? 0
+        countimer = DispatchSource.makeTimerSource()
+        countimer?.schedule(deadline: DispatchTime.now(),repeating: 1)
+        self.countimer?.setEventHandler(handler: {
+            DispatchQueue.main.sync {
+                 // 回调 回到了主线程
+                self.rightCenterL.text = "\(total - count)"
+                count += 1
+                if count > total{
+                    self.countimer?.cancel()
+                    self.leftV.isHidden = true
+                    self.rightV.isHidden = true
+                    self.playNext()
+                    
+                }
+              }
+        })
+        self.countimer?.resume()
+                
+        
+    }
+    
+    func playNext(){
         
         if self.currentModel?.end == true {
             navigationController?.popViewController(animated: true)
@@ -482,7 +890,7 @@ class GPUDetaiVideoVC: BaseViewController {
         
         self.gpuImgView.fillMode = GPUImageFillModeType.init(kGPUImageFillModePreserveAspectRatioAndFill.rawValue)
 
-        let videoPath = Bundle.main.path(forResource: "测试课程.mp4", ofType: nil)
+        let videoPath = Bundle.main.path(forResource: "lily@level1_lesson1_animation_welldone无口型.mp4", ofType: nil)
         let url = URL(fileURLWithPath: videoPath!)
                 
         videoPlayer.playerManger?.assetURL = url
@@ -508,10 +916,12 @@ class GPUDetaiVideoVC: BaseViewController {
         filter.addTarget(self.gpuImgView)
 
         //设置时间回调的间隔
-        videoPlayer.playerManger?.timeRefreshInterval = 0.001
+        videoPlayer.playerManger?.timeRefreshInterval = 0.0001
         
         videoPlayer.playerManger?.playerPlayTimeChanged = {[weak self](asset, currentTime, duration) in
-            
+        
+            print("视频当前时间\(currentTime)")
+
             self?.handleVideoTime(currentTime: currentTime)
             
             return
@@ -635,8 +1045,6 @@ class GPUDetaiVideoVC: BaseViewController {
         
         let time = TimeInterval(self.currentAni?.end?.conversionMillisecond() ?? 0.0)
 
-        print("视频--当前时间\(currentTime)，动画结束时间\(time)")
-
         if self.playend == false {
             return
         }
@@ -655,6 +1063,10 @@ class GPUDetaiVideoVC: BaseViewController {
             }else{
                 self.videoPlayer.playerManger?.pause()
                 self.playNext()
+//                self.handleModelPlayEnd()
+                
+                
+                
             }
         }
         
@@ -674,12 +1086,12 @@ class GPUDetaiVideoVC: BaseViewController {
         })
     }
     static var scale:Bool = true
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        
-        GPUDetaiVideoVC.scale = !GPUDetaiVideoVC.scale
-        
-        playerScaleAnimition(isScale:GPUDetaiVideoVC.scale)
-    }
+//    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+//
+//        GPUDetaiVideoVC.scale = !GPUDetaiVideoVC.scale
+//
+//        playerScaleAnimition(isScale:GPUDetaiVideoVC.scale)
+//    }
 
     /// 放大缩小动画
     /// - Parameter isScale: isScale 是否放大
@@ -711,54 +1123,51 @@ class GPUDetaiVideoVC: BaseViewController {
         self.answerStateI.isHidden = false
         self.answerStateI.image = title.tclass?.getTitleImage()
         
-        if title.tclass == TClass.WrongAnswer || title.tclass == TClass.Congrats || title.tclass == TClass.WrongPronunciation {
-            //左右摇摆动画
-            let animation = CAKeyframeAnimation(keyPath: "position.x")
-            let value1 = ScreenWidth / 2 + 25
-            let value2 = ScreenWidth / 2 - 25
-            let value3 = ScreenWidth / 2 + 25
-            let value4 = ScreenWidth / 2 - 25
-            let value5 = ScreenWidth / 2
-            
-            animation.values = [value1,value2,value3,value4,value5];
-            //重复次数 默认为1
-            animation.repeatCount=1;
-            //设置是否原路返回默认为不
-            animation.autoreverses = false;
-            //设置移动速度，越小越快
-            animation.duration = 1;
-            animation.isRemovedOnCompletion = true;
-            animation.fillMode = CAMediaTimingFillMode.forwards;
-            animation.timingFunctions = [CAMediaTimingFunction(name: .easeInEaseOut),CAMediaTimingFunction(name: .easeInEaseOut),CAMediaTimingFunction(name: .easeInEaseOut),CAMediaTimingFunction(name: .easeInEaseOut)]
-            answerStateI.layer.add(animation, forKey: animation.keyPath)
-        }
+//        if title.tclass == TClass.WrongAnswer || title.tclass == TClass.Congrats || title.tclass == TClass.WrongPronunciation {
+//            //左右摇摆动画
+//            let animation = CAKeyframeAnimation(keyPath: "position.x")
+//            let value1 = ScreenWidth / 2 + 25
+//            let value2 = ScreenWidth / 2 - 25
+//            let value3 = ScreenWidth / 2 + 25
+//            let value4 = ScreenWidth / 2 - 25
+//            let value5 = ScreenWidth / 2
+//
+//            animation.values = [value1,value2,value3,value4,value5];
+//            //重复次数 默认为1
+//            animation.repeatCount=1;
+//            //设置是否原路返回默认为不
+//            animation.autoreverses = false;
+//            //设置移动速度，越小越快
+//            animation.duration = 1;
+//            animation.isRemovedOnCompletion = false;
+//            animation.fillMode = CAMediaTimingFillMode.forwards;
+//            animation.timingFunctions = [CAMediaTimingFunction(name: .easeInEaseOut),CAMediaTimingFunction(name: .easeInEaseOut),CAMediaTimingFunction(name: .easeInEaseOut),CAMediaTimingFunction(name: .easeInEaseOut)]
+//            answerStateI.layer.add(animation, forKey: animation.keyPath)
+//        }
                     
-        carView.setNeedsUpdateConstraints()
-        carView.lineView.isHidden = false
-        carView.animationI.isHidden = true
-        
-
-        UIView.animate(withDuration: 0.35) {
-            self.carView.snp.remakeConstraints { (make) in
-                make.bottom.equalTo(self.carView.answerL.snp.bottom).offset(52)
-                make.top.equalTo(self.gtextboderL.snp.bottom).offset(20)
-                make.left.right.equalToSuperview().inset(24)
-            }
-            self.carView.superview?.layoutIfNeeded()
-        } completion: { (comple) in
-        
-        }
+//        carView.setNeedsUpdateConstraints()
+//        carView.animationI.isHidden = true
+//
+//
+//        UIView.animate(withDuration: 0.35) {
+//            self.carView.snp.remakeConstraints { (make) in
+//                make.bottom.equalTo(self.carView.answerL.snp.bottom).offset(52)
+//                make.top.equalTo(self.gtextboderL.snp.bottom).offset(20)
+//                make.left.right.equalToSuperview().inset(24)
+//            }
+//            self.carView.superview?.layoutIfNeeded()
+//        } completion: { (comple) in
+//
+//        }
         
     }
             
     //处理背景
     func backgroundAni(back:Background){
        
-        
         guard let color = back.bclass?.getBackColor() else {
             return
         }
-        
         if backImgV.backgroundColor?.ex_hexString != color.ex_hexString {
             backImgV.backgroundColor = color
             let anim = CABasicAnimation(keyPath: "backgroundColor")
@@ -778,9 +1187,6 @@ class GPUDetaiVideoVC: BaseViewController {
             
         }
         
-      
-      
-       
                 
     }
     
@@ -794,7 +1200,32 @@ class GPUDetaiVideoVC: BaseViewController {
         }
     }
     
+    @IBAction func leftTapAC(_ sender: Any) {
+        
+        
+        
+        UIView.animate(withDuration: 0.6) {
+            self.leftV.isHidden = true
+            self.rightV.isHidden = true
+        }
+       
+        self.playModel(model: self.currentModel)
+        self.countimer?.cancel()
+        
+        
+    }
     
+    @IBAction func rightTapAC(_ sender: Any) {
+        
+        UIView.animate(withDuration: 0.6) {
+            self.leftV.isHidden = true
+            self.rightV.isHidden = true
+        }
+       
+        self.countimer?.cancel()
+        self.playNext()
+
+    }
     /// 创建UI
     private func creatUI(){
         
@@ -807,35 +1238,120 @@ class GPUDetaiVideoVC: BaseViewController {
         
         view.addSubview(carView)
         carView.snp.makeConstraints { (make) in
-            make.bottom.equalTo(carView.englishQL.snp.bottom).offset(17)
-            make.top.equalTo(self.view.snp.centerY)
             make.left.right.equalToSuperview().inset(24)
+            
+            
+            
+            make.bottom.equalToSuperview().inset(YMKDvice.bottomOffset() + 130)
+        }
+        
+        
+        
+       
+                   
+            
+        gpuImgView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.40)
+        gpuImgView.layer.transform = CATransform3DScale(gpuImgView.layer.transform, 1.25, 1.25, 0)
+        gpuImgView.layer.transform = CATransform3DTranslate(gpuImgView.layer.transform, 0, -67, 0)
+        
+        handleBackMask()
+        
+        
+        view.addSubview(vStitle)
+        view.addSubview(subTitle)
+        
+        vStitle.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(40)
+            make.right.equalToSuperview().offset(-40)
+            make.centerY.equalTo(self.view.snp.centerY).offset(-96)
         }
         
         view.addSubview(answerStateI)
-                
         answerStateI.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.view.snp.centerY).offset(-96)
+            make.centerX.equalToSuperview()
+
+        }
+        
+        view.addSubview(centerStateI)
+        centerStateI.snp.makeConstraints { (make) in
+            make.centerY.equalTo(self.view.snp.centerY).offset(96)
+            make.centerX.equalToSuperview()
+
+        }
+        
+        
+        
+        
+        
+        
+//        view.addSubview(gtextboderL)
+//        gtextboderL.snp.makeConstraints { (make) in
+//            make.top.equalTo(answerStateI.snp.bottom).offset(11)
+//            make.left.right.equalToSuperview().inset(24)
+//        }
+
+        
+        subTitle.snp.makeConstraints { (make) in
+            make.left.right.equalToSuperview().inset(40)
+            make.top.equalTo(self.vStitle.snp.bottom).offset(16)
+        }
+        
+        vStitle.isHidden = true
+        subTitle.isHidden = true
+        
+        
+        
+        view.addSubview(centerCard)
+        centerCard.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().offset(20)
+            make.right.lessThanOrEqualToSuperview().offset(20);
+            make.top.equalTo(self.subTitle.snp.bottom).offset(40)
+            make.bottom.equalTo(self.centerCard.contentL.snp.bottom).offset(16)
+        }
+        
+       
+        
+        
+        centerCard.addSubview(inputTitleImage)
+        inputTitleImage.snp.makeConstraints { (make) in
             make.center.equalToSuperview()
-            make.height.equalTo(44)
-            make.width.equalTo(226)
+            make.height.width.equalTo(121)
         }
-        view.addSubview(gtextboderL)
-        gtextboderL.snp.makeConstraints { (make) in
-            make.top.equalTo(answerStateI.snp.bottom).offset(11)
-            make.left.right.equalToSuperview().inset(24)
+        
+        
+        self.rightV.snp.makeConstraints({ (make) in
+            make.left.equalTo(self.view.snp.centerX).offset(5)
+        })
+        
+        
+        
+        inputBV.clipsToBounds = false
+        view.addSubview(inputBV)
+        inputBV.addSubview(inputBL)
+        inputBV.addSubview(inputBI)
+        
+        inputBV.snp.makeConstraints { (make) in
+            make.centerX.equalToSuperview()
+            make.bottom.equalToSuperview().inset(YMKDvice.bottomOffset() + 62)           
         }
-
-            
-        gpuImgView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.45)
-        gpuImgView.layer.transform = CATransform3DScale(CATransform3DIdentity, 1.25, 1.25, 0)
-        gpuImgView.layer.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-
         
-        handleBackMask()
-
+        inputBL.snp.makeConstraints { (make) in
+            make.left.equalToSuperview().inset(28)
+            make.right.top.bottom.equalToSuperview().inset(9)
+        }
         
-
+        inputBI.snp.makeConstraints { (make) in
+            make.width.equalTo(24)
+            make.height.equalTo(32)
+            make.left.equalToSuperview()
+            make.bottom.equalTo(inputBL.snp.centerY).offset(5)
+        }
         
+        
+      
+
+                
         
     }
         

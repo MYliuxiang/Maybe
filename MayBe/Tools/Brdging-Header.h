@@ -39,6 +39,7 @@
 #import <ZFPlayer/UIView+ZFFrame.h>
 #import <ZFPlayer/UIImageView+ZFCache.h>
 #import "GPUImage.h"
+#import "JHAnimatedImageView.h"
 
 //播放pcm数据
 #import "AVAudioPlayer+Sample.h"
